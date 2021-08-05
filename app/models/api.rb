@@ -20,8 +20,8 @@ class API
       commits: contributors,
       pulls: 'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed',
       defaults: {
-       commits: {'tvaroglu' => 45, 'AbbottMichael' => 23, 'ElliotOlbright' => 35, 'bfl3tch' => 26},
-       pulls: {'tvaroglu' => 6, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7}
+       commits: {'tvaroglu' => 57, 'AbbottMichael' => 28, 'ElliotOlbright' => 49, 'bfl3tch' => 40},
+       pulls: {'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7}
      }
     }
   end

@@ -27,7 +27,7 @@ Find the [project spec here](https://github.com/turingschool-examples/little-est
 
 ### <ins>Overview</ins>
 
-[Little Esty Shop](https://github.com/bfl3tch/little-esty-shop) is a 10-day, 4 person project, during Mod 2 of 4 for Turing School's Back End Engineering Program.
+[Little Esty Shop](https://github.com/tvaroglu/little-esty-shop) is a 10-day, 4 person project, during Mod 2 of 4 for Turing School's Back End Engineering Program.
 
 Our challenge was to build a functioning web app consisting of multiple relational databases to model the popular e-commerce web site *Etsy*.
 
@@ -89,33 +89,6 @@ Learning goals and areas of focus consisted of:
 [stars-url]: https://github.com/bfl3tch/little-esty-shop/stargazers
 [issues-shield]: https://img.shields.io/github/issues/bfl3tch/little-esty-shop.svg?style=flat-square
 [issues-url]: https://github.com/bfl3tch/little-esty-shop/issues
-<!--
-
-
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ... -->
 
 
 # Little Esty Shop
@@ -167,7 +140,7 @@ This project requires Ruby 2.7.2.
     ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin20]
     ```
 
-* [System dependencies](https://github.com/bfl3tch/little-esty-shop/blob/main/Gemfile)
+* [System dependencies](https://github.com/tvaroglu/little-esty-shop/blob/main/Gemfile)
     ```bash
     $ rails -v
     Rails 5.2.6
@@ -205,4 +178,4 @@ This project requires Ruby 2.7.2.
 
     ```
 
-* [Heroku Deployment](https://agile-ravine-84109.herokuapp.com/), for production
+* [Heroku Deployment](http://localhost:3000), (link pending) for production

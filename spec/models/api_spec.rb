@@ -30,9 +30,9 @@ RSpec.describe API do
     expect(expected[:pulls]).to eq(
       'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed')
     expect(expected[:defaults][:commits]).to eq(
-      {'tvaroglu' => 45, 'AbbottMichael' => 23, 'ElliotOlbright' => 35, 'bfl3tch' => 26})
+      {'tvaroglu' => 57, 'AbbottMichael' => 28, 'ElliotOlbright' => 49, 'bfl3tch' => 40})
     expect(expected[:defaults][:pulls]).to eq(
-      {'tvaroglu' => 6, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7})
+      {'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7})
   end
 
   it 'can initialize contributor endpoints to parse requests' do
