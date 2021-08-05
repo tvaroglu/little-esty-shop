@@ -13,8 +13,6 @@
   <img src="https://i.postimg.cc/wTgJcM1T/Screen-Shot-2021-07-27-at-3-06-26-PM.png" alt="little_etsy_shop_flow"/>
 </p>
 
-<!-- ![Relational Rails Welcome Screen](https://user-images.githubusercontent.com/74567704/124805908-1e01ff80-df2a-11eb-92bc-3a1536aa9c84.png) -->
-
 Find the [project spec here](https://github.com/turingschool-examples/little-esty-shop).
 ## Table of Contents
 
@@ -178,4 +176,4 @@ This project requires Ruby 2.7.2.
 
     ```
 
-* [Heroku Deployment](http://localhost:3000), (link pending) for production
+* [Heroku Deployment](https://limitless-anchorage-42971.herokuapp.com/), for production
