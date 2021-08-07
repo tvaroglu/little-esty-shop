@@ -1,10 +1,11 @@
 class Merchant < ApplicationRecord
   enum status: {enabled: 0, disabled: 1}
+  validates :status, presence: true, inclusion: { in: Merchant.statuses.keys }
 
   validates :name, presence: true
-  validates :status, presence: true
 
   has_many :items
+  has_many :discounts
 
 
   def self.top_merchants_by_revenue
