@@ -16,6 +16,13 @@ RSpec.describe 'Merchants Discounts Index Page' do
       quantity_threshold: 10,
       percentage_discount: 0.50,
       merchant_id: @merchant.id)
+    @mock_response = [
+      {"date"=>"2021-11-11", "name"=>"Veterans Day"},
+      {"date"=>"2021-10-11", "name"=>"Columbus Day"},
+      {"date"=>"2021-09-06", "name"=>"Labour Day"},
+      {"date"=>"2021-07-05", "name"=>"Independence Day"}
+    ]
+    allow(API).to receive(:render_request).and_return(@mock_response)
 
     visit merchant_discounts_path(@merchant.id)
   end
@@ -59,5 +66,22 @@ RSpec.describe 'Merchants Discounts Index Page' do
     end
   end
 
+  it 'displays a section for the next 3 upcoming holidays' do
+    expected = API.upcoming_holidays
+    expect(expected).to eq({
+      "Labour Day" => "2021-09-06",
+      "Columbus Day" => "2021-10-11",
+      "Veterans Day" => "2021-11-11"})
+
+    within "#holidays" do
+      expect(page).to have_content("Upcoming Holidays:")
+      # save_and_open_page
+      expected.each do |holiday, date|
+        expect(page).to have_content("#{expected.keys.index(holiday) + 1})")
+        expect(page).to have_content("#{holiday}:")
+        expect(page).to have_content("#{date}")
+      end
+    end
+  end
 
 end

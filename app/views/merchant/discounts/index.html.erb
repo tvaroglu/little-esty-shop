@@ -1,3 +1,20 @@
+<div align="center" id="holidays">
+  <% upcoming_holidays = API.upcoming_holidays %>
+  <div class="table table-striped navbar-custom" style="width: 18rem; border-radius:5px;">
+    <h3><strong>Upcoming Holidays:</strong></h3>
+      <div class="card-body" style="text-align:left;">
+        <% upcoming_holidays.each do |holiday, date| %>
+          <td><%= upcoming_holidays.keys.index(holiday) + 1 %>)&nbsp</td>
+          <td><%= holiday %>:&nbsp</td>
+          <td><%= date %></td>
+          <br/>
+        <% end %>
+      </div>
+  </div>
+</div>
+<br>
+<br>
+
 <h1><%= @merchant.name %>'s Bulk Discounts</h1>
 <br>
 
