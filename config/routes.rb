@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:show, :index], module: :merchant do
       resources :items
       resources :invoices
+      resources :discounts
       resources :dashboard, only: [:index]
   end
 
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
     resources :invoices
   end
 end
+
 
 # resources :merchants, module: :merchants do
 #   get '/dashboard', to: 'dashboard#show', as: 'merchant_dashboard'
