@@ -3,20 +3,22 @@ require 'rails_helper'
 RSpec.describe Merchant do
   describe 'associations' do
     it {should have_many :items}
+    it {should have_many :discounts}
   end
 
   describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :status }
+    it { should define_enum_for(:status).with_values([:enabled, :disabled]) }
   end
 
-  describe 'Methods' do
+  describe 'methods' do
     before :each do
       @merchant = Merchant.create!(name: 'Tom Holland', status: 0)
 
       @customer1 = Customer.create!(first_name: 'Green', last_name: 'Goblin')
 
-      @invoice1 =Invoice.create!(status: 2, customer_id: @customer1.id)
+      @invoice1 = Invoice.create!(status: 2, customer_id: @customer1.id)
 
       @item1 = Item.create!(name: 'spider suit', description: 'saves lives', unit_price: '10000', merchant_id: @merchant.id)
       @item2 = Item.create!(name: 'web shooter', description: 'shoots webs', unit_price: '5000', merchant_id: @merchant.id)
@@ -73,7 +75,7 @@ RSpec.describe Merchant do
       end
     end
 
-    describe '#enable_opposite' do
+    describe '#status_opposite' do
       it "returns the opposite of the merchant's enabled/disabled status" do
         expect(@merchant.status).to eq('enabled')
         expect(@merchant.status_opposite).to eq('disabled')
