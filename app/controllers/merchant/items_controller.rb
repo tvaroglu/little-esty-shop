@@ -1,4 +1,5 @@
 class Merchant::ItemsController < ApplicationController
+  
   def index
     @merchant = Merchant.find(params[:merchant_id])
     if params[:sort] == 'name'
@@ -42,7 +43,6 @@ class Merchant::ItemsController < ApplicationController
   end
 
   private
-
   def item_params
     params.permit(:name, :description, :unit_price, :enable, :merchant_id)
   end
@@ -50,4 +50,5 @@ class Merchant::ItemsController < ApplicationController
   def item_model_params
     params.require(:item).permit(:name, :description, :unit_price, :enable)
   end
+
 end

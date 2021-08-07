@@ -37,6 +37,12 @@ RSpec.describe Discount do
         expect(@discount.status_opposite).to eq('disabled')
       end
     end
+
+    describe '#formatted_percentage' do
+      it "returns the formatted percentage of the discount's percentage discount table column" do
+        expect(@discount.formatted_percentage).to eq("#{(@discount.percentage_discount * 100).round}%")
+      end
+    end
   end
 
 end

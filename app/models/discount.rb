@@ -12,4 +12,8 @@ class Discount < ApplicationRecord
     status == 'enabled' ? 'disabled' : 'enabled'
   end
 
+  def formatted_percentage
+    "#{(percentage_discount * 100).round}%"
+  end
+
 end
