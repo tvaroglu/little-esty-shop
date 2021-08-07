@@ -23,27 +23,41 @@ RSpec.describe 'Merchants Discounts Index Page' do
   it 'is on the correct page' do
     expect(current_path).to eq(merchant_discounts_path(@merchant.id))
     expect(page).to have_content("#{@merchant.name}'s Bulk Discounts")
-    expect(page).to have_content("All Merchant Discounts")
+    expect(page).to have_content('All Merchant Discounts')
   end
 
   it 'displays all bulk discounts and attributes, with a link to the discount show and edit pages' do
     within "#discounts-#{@discount_1.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
-      expect(page).to have_link("View Discount")
-      expect(page).to have_link("Edit Discount")
+      expect(page).to have_link('View')
+      expect(page).to have_link('Edit')
     end
 
     within "#discounts-#{@discount_2.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_2.formatted_percentage} off #{@discount_2.quantity_threshold} items")
-      expect(page).to have_link("View Discount")
-      expect(page).to have_link("Edit Discount")
+      expect(page).to have_link('View')
+      expect(page).to have_link('Edit')
     end
 
     within "#discounts-#{@discount_3.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_3.formatted_percentage} off #{@discount_3.quantity_threshold} items")
-      expect(page).to have_link("View Discount")
-      expect(page).to have_link("Edit Discount")
+      expect(page).to have_link('View')
+      expect(page).to have_link('Edit')
     end
   end
+
+  it 'redirects the user to the discount show and edit pages' do
+    within "#discounts-#{@discount_1.id}" do
+      click_on('View')
+      expect(current_path).to eq(merchant_discount_path(@merchant.id, @discount_1.id))
+    end
+
+    visit merchant_discounts_path(@merchant.id)
+    within "#discounts-#{@discount_1.id}" do
+      click_on('Edit')
+      expect(current_path).to eq(edit_merchant_discount_path(@merchant.id, @discount_1.id))
+    end
+  end
+
 
 end
