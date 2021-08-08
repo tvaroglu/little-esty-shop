@@ -1,7 +1,7 @@
 <table class="table table-striped navbar-custom">
   <thead class="custom" text-align="center" align="center">
     <tr>
-      <th colspan="2" style="font-family: Quicksand;">Disabled Merchants</th>
+      <th colspan="4" style="font-family: Quicksand;">Disabled Merchants</th>
     </tr>
 </thead >
   <tbody id="disabled">
@@ -15,8 +15,8 @@
       <tr id="disabled_merchant-<%= dis.id %>">
         <td><%= link_to "#{dis.name}", admin_merchant_path(dis.id), class:"btn btn-outline-dark navbar-custom btn-sm" %></td>
         <td><%= "#{dis.status.to_s.capitalize}"%></td>
-        <td><%= button_to 'Edit Merchant', edit_admin_merchant_path(dis.id), method: :get, class:"btn btn-outline-dark navbar-custom" %></td>
-        <td><%= button_to "#{dis.status_opposite.chop.capitalize} Merchant", admin_merchant_path(dis.id), method: :patch, class:"btn btn-outline-dark navbar-custom", params: { direct: 'status change', merchant: { status: dis.status_opposite }} %></td>
+        <td><%= button_to 'Edit Merchant', edit_admin_merchant_path(dis.id), method: :get, class:"btn btn-outline-dark navbar-custom btn-sm" %></td>
+        <td><%= button_to "#{dis.status_opposite.chop.capitalize} Merchant", admin_merchant_path(dis.id), method: :patch, class:"btn btn-outline-dark navbar-custom btn-sm", params: { direct: 'status change', merchant: { status: dis.status_opposite }} %></td>
       </tr>
     <% end %>
   </tbody>

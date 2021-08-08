@@ -16,6 +16,7 @@ RSpec.describe 'Merchants Discounts Index Page' do
       quantity_threshold: 10,
       percentage_discount: 0.50,
       merchant_id: @merchant.id)
+
     @mock_response = [
       {"date"=>"2021-11-11", "name"=>"Veterans Day"},
       {"date"=>"2021-10-11", "name"=>"Columbus Day"},
@@ -33,39 +34,53 @@ RSpec.describe 'Merchants Discounts Index Page' do
     expect(page).to have_content('All Merchant Discounts')
   end
 
-  it 'displays all bulk discounts and attributes, with a link to the discount show and edit pages' do
+  it 'can take the user back to the merchant dashboard' do
+    click_on 'Return to Dashboard'
+    expect(current_path).to eq(merchant_dashboard_index_path(@merchant.id))
+  end
+
+  # As a merchant
+    # When I visit my merchant dashboard
+    # Then I see a link to view all my discounts
+    # When I click this link
+    # Then I am taken to my bulk discounts index page
+    # Where I see all of my bulk discounts including their
+    # percentage discount and quantity thresholds
+    # And each bulk discount listed includes a link to its show page
+  it 'displays all bulk discounts and attributes, with a link to the discount show and delete actions' do
+    expect(@discount_1.status).to eq('enabled')
+    expect(@discount_1.status_opposite).to eq('disabled')
+
     within "#discounts-#{@discount_1.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
       expect(page).to have_link('View')
-      expect(page).to have_link('Edit')
+      expect(page).to have_link('Delete')
     end
 
     within "#discounts-#{@discount_2.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_2.formatted_percentage} off #{@discount_2.quantity_threshold} items")
       expect(page).to have_link('View')
-      expect(page).to have_link('Edit')
+      expect(page).to have_link('Delete')
     end
 
     within "#discounts-#{@discount_3.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_3.formatted_percentage} off #{@discount_3.quantity_threshold} items")
       expect(page).to have_link('View')
-      expect(page).to have_link('Edit')
+      expect(page).to have_link('Delete')
     end
   end
 
-  it 'redirects the user to the discount show and edit pages' do
+  it 'redirects the user to the discount show page' do
     within "#discounts-#{@discount_1.id}" do
       click_on('View')
       expect(current_path).to eq(merchant_discount_path(@merchant.id, @discount_1.id))
     end
-
-    visit merchant_discounts_path(@merchant.id)
-    within "#discounts-#{@discount_1.id}" do
-      click_on('Edit')
-      expect(current_path).to eq(edit_merchant_discount_path(@merchant.id, @discount_1.id))
-    end
   end
 
+  # As a merchant
+    # When I visit the discounts index page
+    # I see a section with a header of "Upcoming Holidays"
+    # In this section the name and date of the next 3 upcoming US holidays are listed.
   it 'displays a section for the next 3 upcoming holidays' do
     expected = API.upcoming_holidays
     expect(expected).to eq({
@@ -82,6 +97,24 @@ RSpec.describe 'Merchants Discounts Index Page' do
         expect(page).to have_content("#{@merchant.format_date(Date.parse(date))}")
       end
     end
+  end
+
+  # As a merchant
+    # When I visit my bulk discounts index
+    # Then next to each bulk discount I see a link to delete it
+    # When I click this link
+    # Then I am redirected back to the bulk discounts index page
+    # And I no longer see the discount listed
+  it 'displays a link to delete the bulk discount' do
+    within "#discounts-#{@discount_1.id}" do
+      expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
+      expect(page).to have_link('Delete')
+      # save_and_open_page
+      click_on('Delete')
+      expect(current_path).to eq(merchant_discounts_path(@merchant.id))
+    end
+    # save_and_open_page
+    expect(page).to_not have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
   end
 
 end

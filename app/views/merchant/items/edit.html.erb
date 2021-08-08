@@ -1,14 +1,17 @@
 <h1>Editing Merchant Item</h1>
 
-<%= form_with model: [ :merchant, @item ], method: :patch, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %></br>
+<div align="center">
+  <%= form_with model: [ :merchant, @item ], method: :patch, local: true, :html => { :class => 'card navbar-custom card-body', :style => 'width: 15rem;' } do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %></br>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %></br>
+    <%= f.label :description %>
+    <%= f.text_field :description %></br>
 
-  <%= f.label :unit_price %>
-  <%= f.text_field :unit_price %></br>
-
-  <%= f.submit %>
-<% end %>
+    <%= f.label :unit_price %>
+    <%= f.number_field :unit_price, step: 1, placeholder: 'Price In Cents', min: 0 %><br>
+    <div style="padding-top:10px;">
+      <%= f.submit 'Update Item', :class => "btn btn-outline-dark navbar-custom" %>
+    </div>
+  <% end %>
+</div>

@@ -31,7 +31,7 @@ class Admin::MerchantsController < ApplicationController
     merchant = Merchant.find(params[:id])
     merchant.update(merchant_model_params)
     return redirect_back(fallback_location: admin_merchants_path) if params[:direct] == 'status change'
-    redirect_to admin_merchant_path(merchant.id), notice: "Item successfully updated."
+    redirect_to admin_merchant_path(merchant.id), notice: "Merchant successfully updated."
   end
 
 

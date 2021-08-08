@@ -21,23 +21,24 @@ RSpec.describe 'Merchants Index Page' do
   end
 
   it 'can take user to merchant dashboard page' do
-    click_link "#{@merchant1.name}"
-
-    expect(current_path).to eq(merchant_dashboard_index_path(@merchant1.id))
+    within "#merchant-#{@merchant1.id}" do
+      click_on 'Merchant Dashboard'
+      expect(current_path).to eq(merchant_dashboard_index_path(@merchant1.id))
+    end
   end
 
   it 'can sort merchants by name and updated date' do
     expect(@merchant1.name).to appear_before(@merchant2.name)
     expect(@merchant2.name).to appear_before(@merchant3.name)
 
-    click_on "Sort Alphabetically"
+    click_on 'Sort Alphabetically'
     expect(current_path).to eq(merchants_path)
 
     expect(@merchant3.name).to appear_before(@merchant2.name)
     expect(@merchant2.name).to appear_before(@merchant1.name)
 
     @merchant1.update(name: 'Dom Tolland')
-    click_on "Sort by Updated Date"
+    click_on 'Sort by Updated Date'
     expect(current_path).to eq(merchants_path)
     expect(@merchant1.name).to appear_before(@merchant2.name)
   end

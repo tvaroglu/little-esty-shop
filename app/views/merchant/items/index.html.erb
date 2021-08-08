@@ -1,9 +1,12 @@
+<%= link_to 'Return to Dashboard', merchant_dashboard_index_path(@merchant.id), class:"btn btn-outline-dark navbar-custom" %>
+
 <h1><%= @merchant.name %>'s Items</h1>
 <br/>
 <div align="center">
-<%= link_to 'Create a new item', new_merchant_item_path, class: "btn btn-secondary navbar-custom"%>
+<%= link_to 'Create New Item', new_merchant_item_path, class: "btn btn-secondary navbar-custom"%>
 </div>
 <br><br>
+
 <table id="top-item-table" class="table table-striped" style="text-align:center">
   <thead class="custom" text-align="center" align="center">
     <tr>
@@ -26,14 +29,15 @@
               <td><%= number_to_currency(("#{item.total_item_price}".to_i)/100.00) %></td>
             </tr>
           <% end %>
-    </table>
+      </table>
   </tbody>
 </table>
 <br><br>
+
 <table id='all-item-table' class="table table-striped" style="text-align:center">
   <thead class="custom" text-align="center" align="center">
     <tr>
-      <th colspan="5" style="font-family: Quicksand;"><h4>Merchants Items</h4></th>
+      <th colspan="5" style="font-family: Quicksand;"><h4>All Items</h4></th>
     </tr>
   </thead>
   <tbody>
@@ -58,41 +62,42 @@
             <td><%= item.enable.capitalize %>d</td>
             <td><%= button_to "#{item.enable_opposite.capitalize} Item", merchant_item_path(@merchant.id, item.id), method: :patch,
                       params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-secondary btn-sm" %></td>
-            <td><%= link_to 'Show', merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm navbar-custom" %></td>
-            <td><%= link_to 'Edit', edit_merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm navbar-custom" %></td>
+            <td><%= link_to 'View', merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm" %></td>
+            <td><%= link_to 'Edit', edit_merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm" %></td>
           </tr>
         <% end %>
     </table
   </tbody>
 </table>
 <br><br>
-<div style="margin: auto; width: 100%; padding: 0 100px 0;">
-<div id="enabled" style="display:inline-block; width:500px; background:rgba(250,250,250, 0.3); padding:20px; margin:0 4em 2em 0;">
-<table class="table mb-0 table-striped table-hove navbar-custom">
-    <tbody>
-      <h4>Enabled Items</h4>
-      <% @enabled_items.each do |item| %>
-        <tr id="enabled_item-<%= item.id %>">
-          <td><%= link_to item.name, merchant_item_path(@merchant.id, item.id), class: "link-dark" %></td>
-          <td><%= button_to "#{item.enable_opposite.capitalize} Item", merchant_item_path(@merchant.id, item.id), method: :patch,
-                    params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-secondary btn-sm" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-</table>
-</div>
-<div id="disabled" style="display: inline-block; width:500px; background:rgba(250,250,250, 0.3); padding:20px;">
-<table class="table mb-0 table-striped table-hover navbar-custom">
-    <tbody>
-      <h4>Disabled Items</h4>
-      <% @disabled_items.each do |item| %>
-        <tr id="disabled_item-<%= item.id %>">
-          <td><%= link_to item.name, merchant_item_path(@merchant.id, item.id), class: "link-dark" %></td>
-          <td><%= button_to "#{item.enable_opposite.capitalize} Item", merchant_item_path(@merchant.id, item.id), method: :patch,
-                    params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-secondary btn-sm" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-</table>
-</div>
+
+<div align="center" style="margin:auto; width: 100%; padding: 0 100px 0;">
+  <div id="enabled" style="display:inline-block; width:auto; background:rgba(250,250,250, 0.3); padding:20px; margin:0 4em 2em 0;">
+    <table class="table mb-0 table-striped table-hover navbar-custom">
+        <tbody>
+          <h4>Enabled Items</h4>
+          <% @enabled_items.each do |item| %>
+            <tr id="enabled_item-<%= item.id %>">
+              <td><%= link_to item.name, merchant_item_path(@merchant.id, item.id), class: "link-dark" %></td>
+              <td><%= button_to "#{item.enable_opposite.capitalize} Item", merchant_item_path(@merchant.id, item.id), method: :patch,
+                        params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-secondary btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  </div>
+  <div id="disabled" style="display:inline-block; width:auto; background:rgba(250,250,250, 0.3); padding:20px; margin:0 4em 2em 0;">
+    <table class="table mb-0 table-striped table-hover navbar-custom">
+        <tbody>
+          <h4>Disabled Items</h4>
+          <% @disabled_items.each do |item| %>
+            <tr id="disabled_item-<%= item.id %>">
+              <td><%= link_to item.name, merchant_item_path(@merchant.id, item.id), class: "link-dark" %></td>
+              <td><%= button_to "#{item.enable_opposite.capitalize} Item", merchant_item_path(@merchant.id, item.id), method: :patch,
+                        params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-secondary btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  </div>
 </div>

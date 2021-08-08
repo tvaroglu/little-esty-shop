@@ -1,3 +1,7 @@
+<%= link_to 'Return to Dashboard', merchant_dashboard_index_path(@merchant.id), class:"btn btn-outline-dark navbar-custom" %>
+<%= link_to 'Create New Discount', new_merchant_discount_path, class:"btn btn-outline-dark navbar-custom" %>
+<br>
+<br>
 <div align="center" id="holidays">
   <% upcoming_holidays = API.upcoming_holidays %>
   <div class="table table-striped navbar-custom" style="width: 24rem; border-radius:5px;">
@@ -19,15 +23,14 @@
 
 <h1><%= @merchant.name %>'s Bulk Discounts</h1>
 <br>
-
 <div align="center">
 <h3>All Merchant Discounts</h3>
 <% @discounts.each do |disc| %>
   <div id="discounts-<%= disc.id %>" class="card navbar-custom" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title"><em>Bulk Discount: </em><br><%= "#{disc.formatted_percentage} off #{disc.quantity_threshold} items"%></h5>
-        <td><%= link_to 'View', merchant_discount_path((params[:merchant_id]), disc.id), class:"btn btn-outline-dark navbar-custom" %></td>
-        <td><%= link_to 'Edit', edit_merchant_discount_path((params[:merchant_id]), disc.id), class:"btn btn-outline-dark navbar-custom" %></td>
+        <td><%= link_to 'View', merchant_discount_path((params[:merchant_id]), disc.id), method: :get, class:"btn btn-outline-dark navbar-custom" %></td>
+        <td><%= link_to 'Delete', merchant_discount_path((params[:merchant_id]), disc.id), method: :delete, class:"btn btn-outline-dark navbar-custom" %></td>
     </div>
   </div>
   <br/>
