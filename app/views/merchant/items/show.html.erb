@@ -12,10 +12,8 @@
           <%= number_to_currency(@item.unit_price/100.00, precision: 2) %>
         </strong>
       </h6>
-        <%= link_to 'Update item information', edit_merchant_item_path(@item.merchant_id, @item.id), class:"btn btn-outline-dark navbar-custom" %>
-
-
+        <%= link_to 'Update Item Information', edit_merchant_item_path(@item.merchant_id, @item.id), class:"btn btn-outline-dark navbar-custom" %>
     </div>
   </div>
+  <br/>
 </div>
-<br/>

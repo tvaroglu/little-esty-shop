@@ -106,14 +106,13 @@ RSpec.describe 'Merchants Item Index Page' do
     end
   end
 
-  describe "create a new Item" do
-
+  describe 'create a new Item' do
     it "displays a link to 'Create a new item'" do
-      expect(page).to have_link('Create a new item')
+      expect(page).to have_link('Create New Item')
     end
 
-    it "'Create a new item' links to the page to create a new Merchant Item" do
-      click_link('Create a new item')
+    it 'links to the page to create a new Merchant Item' do
+      click_link('Create New Item')
 
       expect(current_path).to eq(new_merchant_item_path(@merchant1.id))
     end

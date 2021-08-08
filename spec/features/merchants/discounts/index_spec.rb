@@ -34,6 +34,9 @@ RSpec.describe 'Merchants Discounts Index Page' do
   end
 
   it 'displays all bulk discounts and attributes, with a link to the discount show and edit pages' do
+    expect(@discount_1.status).to eq('enabled')
+    expect(@discount_1.status_opposite).to eq('disabled')
+
     within "#discounts-#{@discount_1.id}" do
       expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
       expect(page).to have_link('View')
