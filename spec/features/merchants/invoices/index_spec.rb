@@ -27,7 +27,8 @@ RSpec.describe 'Merchants Invoices index page' do
 
   it 'is on the correct page' do
     expect(current_path).to eq(merchant_invoices_path(@merchant_1.id))
-    expect(page).to have_content("Merchant Invoices")
+    expect(page).to have_content("#{@merchant_1.name}'s Invoices")
+    expect(page).to have_content("All Merchant Invoices")
   end
 
   it 'displays the invoices related to merchant' do
