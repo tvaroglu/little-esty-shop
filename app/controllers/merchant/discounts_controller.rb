@@ -34,6 +34,11 @@ class Merchant::DiscountsController < ApplicationController
     redirect_to merchant_discount_path(discount.merchant_id, discount.id), notice: "Bulk discount successfully updated."
   end
 
+  def destroy
+    Discount.find(params[:id]).destroy
+    redirect_to merchant_discounts_path(params[:merchant_id])
+  end
+
   private
   def discount_params
     params.permit(:quantity_threshold, :percentage_discount, :status, :merchant_id)

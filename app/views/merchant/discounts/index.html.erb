@@ -29,8 +29,8 @@
   <div id="discounts-<%= disc.id %>" class="card navbar-custom" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title"><em>Bulk Discount: </em><br><%= "#{disc.formatted_percentage} off #{disc.quantity_threshold} items"%></h5>
-        <td><%= link_to 'View', merchant_discount_path((params[:merchant_id]), disc.id), class:"btn btn-outline-dark navbar-custom" %></td>
-        <td><%= link_to 'Edit', edit_merchant_discount_path((params[:merchant_id]), disc.id), class:"btn btn-outline-dark navbar-custom" %></td>
+        <td><%= link_to 'View', merchant_discount_path((params[:merchant_id]), disc.id), method: :get, class:"btn btn-outline-dark navbar-custom" %></td>
+        <td><%= link_to 'Delete', merchant_discount_path((params[:merchant_id]), disc.id), method: :delete, class:"btn btn-outline-dark navbar-custom" %></td>
     </div>
   </div>
   <br/>
