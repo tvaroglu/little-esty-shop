@@ -33,6 +33,11 @@ RSpec.describe 'Merchants Discounts Index Page' do
     expect(page).to have_content('All Merchant Discounts')
   end
 
+  it 'can take the user back to the merchant dashboard' do
+    click_on 'Return to Dashboard'
+    expect(current_path).to eq(merchant_dashboard_index_path(@merchant.id))
+  end
+
   it 'displays all bulk discounts and attributes, with a link to the discount show and edit pages' do
     expect(@discount_1.status).to eq('enabled')
     expect(@discount_1.status_opposite).to eq('disabled')

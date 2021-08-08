@@ -1,3 +1,5 @@
+<%= link_to 'Return to Dashboard', merchant_dashboard_index_path(@merchant.id), class:"btn btn-outline-dark navbar-custom" %>
+
 <div align="center" id="holidays">
   <% upcoming_holidays = API.upcoming_holidays %>
   <div class="table table-striped navbar-custom" style="width: 24rem; border-radius:5px;">
