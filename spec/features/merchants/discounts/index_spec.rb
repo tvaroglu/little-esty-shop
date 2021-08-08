@@ -79,7 +79,7 @@ RSpec.describe 'Merchants Discounts Index Page' do
       expected.each do |holiday, date|
         expect(page).to have_content("#{expected.keys.index(holiday) + 1})")
         expect(page).to have_content("#{holiday}:")
-        expect(page).to have_content("#{date}")
+        expect(page).to have_content("#{@merchant.format_date(Date.parse(date))}")
       end
     end
   end

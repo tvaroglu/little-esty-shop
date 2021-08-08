@@ -1,6 +1,6 @@
-<div align="center">
-<%= button_to "  Sort Alphabetically  ", merchants_path, method: :get, class:"btn btn-outline-dark navbar-custom", params: { sort: 'name' }  %>
-<%= button_to "Sort by Updated Date", merchants_path, method: :get, class:"btn btn-outline-dark navbar-custom", params: { sort: 'date' }  %>
+<div text-align="center" align="center">
+  <%= button_to "  Sort Alphabetically  ", merchants_path, method: :get, class:"btn btn-outline-dark navbar-custom", params: { sort: 'name' } %>
+  <%= button_to "Sort by Updated Date", merchants_path, method: :get, class:"btn btn-outline-dark navbar-custom", params: { sort: 'date' } %>
 </div>
 <br>
 <br>
@@ -8,7 +8,7 @@
 <div align="center">
 <h1>All Merchants</h1>
 <% @merchants.each do |merchant| %>
-  <div class="card navbar-custom"  style="width: 18rem;">
+  <div class="card navbar-custom" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title"><%= merchant.name %></h5>
       <h6 class="card-subtitle mb-2 text-muted">Created <%= merchant.format_date(merchant.created_at) %></h6>
