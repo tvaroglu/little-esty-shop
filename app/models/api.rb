@@ -1,5 +1,6 @@
 require 'faraday'
 require 'json'
+require 'date'
 
 class API
 
@@ -26,6 +27,10 @@ class API
     }
   end
 
+  def self.nager_date_endpoint
+    'https://date.nager.at/api/v1/Get/US/2021'
+  end
+
   def self.make_request(endpoint)
     Faraday.get(endpoint)
   end
@@ -40,6 +45,10 @@ class API
 
   def self.render_request(endpoint)
     APIS::RenderRequest.new(endpoint).parse
+  end
+
+  def self.upcoming_holidays
+    APIS::Holidays.new(render_request(nager_date_endpoint)).next_3
   end
 
   def self.aggregate_by_author(metric)
