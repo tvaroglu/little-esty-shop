@@ -1,1 +1,20 @@
 <h1>Editing Merchant Discount</h1>
+<br>
+
+<div align="center">
+  <%= form_with model: [ :merchant, @discount ], method: :patch, local: true, :html => { :class => 'card navbar-custom card-body', :style => 'width: 15rem;' } do |f| %>
+    <%= f.label :quantity_threshold, "Quantity Threshold:" %>
+    <div style="padding-top:10px;">
+      <%= f.number_field :quantity_threshold, step: 1, min: 0 %><br>
+    </div>
+    <br>
+    <%= f.label :percentage_discount, "Percentage Discount:" %>
+    <div style="padding-top:10px;">
+      <%= f.number_field :percentage_discount, step: 0.05, min: 0.1, max: 0.9 %><br>
+    </div>
+    <br>
+    <div style="padding-top:10px;">
+      <%= f.submit 'Update Discount', :class => "btn btn-outline-dark navbar-custom" %>
+    </div>
+  <% end %>
+</div>
