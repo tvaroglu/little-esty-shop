@@ -16,6 +16,7 @@ RSpec.describe 'Merchants Discounts Index Page' do
       quantity_threshold: 10,
       percentage_discount: 0.50,
       merchant_id: @merchant.id)
+    
     @mock_response = [
       {"date"=>"2021-11-11", "name"=>"Veterans Day"},
       {"date"=>"2021-10-11", "name"=>"Columbus Day"},

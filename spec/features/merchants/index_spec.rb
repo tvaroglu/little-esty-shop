@@ -22,7 +22,7 @@ RSpec.describe 'Merchants Index Page' do
 
   it 'can take user to merchant dashboard page' do
     within "#merchant-#{@merchant1.id}" do
-      click_on 'Merchant Index'
+      click_on 'Merchant Dashboard'
       expect(current_path).to eq(merchant_dashboard_index_path(@merchant1.id))
     end
   end

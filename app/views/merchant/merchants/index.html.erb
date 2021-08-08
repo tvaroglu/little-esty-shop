@@ -13,7 +13,7 @@
     <div class="card-body">
       <h5 class="card-title"><%= merchant.name %></h5>
       <h6 class="card-subtitle mb-2 text-muted">Created <%= merchant.format_date(merchant.created_at) %></h6>
-        <%= link_to 'Merchant Index', merchant_dashboard_index_path(merchant.id), class:"btn btn-outline-dark navbar-custom"%>
+        <%= link_to 'Merchant Dashboard', merchant_dashboard_index_path(merchant.id), class:"btn btn-outline-dark navbar-custom"%>
     </div>
   </div>
   <br/>
