@@ -9,7 +9,7 @@
     <%= f.text_field :description %></br>
 
     <%= f.label :unit_price %>
-    <%= f.text_field :unit_price %></br>
+    <%= f.number_field :unit_price, step: 1, placeholder: 'Price In Cents', min: 0 %><br>
     <div style="padding-top:10px;">
       <%= f.submit 'Update Item', :class => "btn btn-outline-dark navbar-custom" %>
     </div>

@@ -3,13 +3,12 @@
 <br>
 
 <div align="center">
-<h1>All Invoices</h1>
+<h3>All Invoices</h3>
 <% @invoices.each do |i| %>
-  <div id="invoices-<%= i.id %>" class="card navbar-custom"  style="width: 18rem;">
+  <div id="invoices-<%= i.id %>" class="card navbar-custom"  style="width: 15rem;">
     <div class="card-body">
       <h5 class="card-title">Invoice: <%= i.id %></h5>
-        <td><%= link_to 'Show', merchant_invoice_path((params[:merchant_id]), i.id), class:"btn btn-outline-dark navbar-custom" %></td>
-        <td><%= link_to 'Edit', edit_merchant_invoice_path((params[:merchant_id]), i.id), class:"btn btn-outline-dark navbar-custom" %></td>
+        <td><%= link_to 'View', merchant_invoice_path((params[:merchant_id]), i.id), class:"btn btn-outline-dark navbar-custom" %></td>
     </div>
   </div>
   <br/>

@@ -64,11 +64,24 @@ RSpec.describe 'Merchants Item Index Page' do
   end
 
   it 'can display all of the merchants items' do
-    expect(page).to have_content('Merchants Items')
+    expect(page).to have_content('All Items')
 
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@item2.name)
     expect(page).to_not have_content(@wrongitem.name)
+  end
+
+  it 'can link to the item show and edit pages' do
+    within "#merchant_item-#{@item1.id}" do
+      click_on 'View'
+      expect(current_path).to eq(merchant_item_path(@merchant1.id, @item1.id))
+    end
+
+    visit merchant_items_path(@merchant1.id)
+    within "#merchant_item-#{@item1.id}" do
+      click_on 'Edit'
+      expect(current_path).to eq(edit_merchant_item_path(@merchant1.id, @item1.id))
+    end
   end
 
   describe "item disable/enable" do
