@@ -173,10 +173,8 @@ RSpec.describe 'Admin Merchants Index Page' do
   end
 
   it 'can take the user to create a new merchant' do
-    within "#create" do
-      click_on 'Create New Merchant'
-      expect(current_path).to eq(new_admin_merchant_path)
-    end
+    click_on 'Create New Merchant'
+    expect(current_path).to eq(new_admin_merchant_path)
   end
 
   it 'can display enabled merchants section' do
@@ -236,7 +234,7 @@ RSpec.describe 'Admin Merchants Index Page' do
         expect(@merchant1.status).to eq('disabled')
       end
 
-      visit "/admin/merchants"
+      visit '/admin/merchants'
       # save_and_open_page
       within "#disabled_merchant-#{@merchant1.id}" do
         expect(page).to have_button('Enable Merchant', visible: :visible)
