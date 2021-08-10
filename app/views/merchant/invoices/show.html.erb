@@ -18,7 +18,7 @@
       <th class="table-info">Customer:</th>
     </tr>
       <tr>
-        <td><%= @invoice.status.to_s.capitalize %></td>
+        <td><%= @invoice.status.capitalize %></td>
         <td><%= @invoice.format_date(@invoice.created_at) %></td>
         <td><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></td>
       </tr>
