@@ -32,14 +32,14 @@ RSpec.describe 'Merchants Index Page' do
     expect(@merchant2.name).to appear_before(@merchant3.name)
 
     click_on 'Sort Alphabetically'
-    expect(current_path).to eq(merchants_path)
+    expect(current_path).to eq(merchants_path('name'))
 
     expect(@merchant3.name).to appear_before(@merchant2.name)
     expect(@merchant2.name).to appear_before(@merchant1.name)
 
     @merchant1.update(name: 'Dom Tolland')
     click_on 'Sort by Updated Date'
-    expect(current_path).to eq(merchants_path)
+    expect(current_path).to eq(merchants_path('date'))
     expect(@merchant1.name).to appear_before(@merchant2.name)
   end
 end
