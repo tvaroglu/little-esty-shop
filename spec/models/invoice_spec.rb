@@ -70,22 +70,22 @@ RSpec.describe Invoice do
         unit_price: 60_000,
         status: 1)
       @invoice_item_4 = InvoiceItem.create!(
-        item: @item_3,
-        invoice: @invoice_2,
-        quantity: 1,
-        unit_price: 60_000,
-        status: 1)
-      @invoice_item_5 = InvoiceItem.create!(
         item: @item_4,
         invoice: @invoice_2,
         quantity: 2,
         unit_price: 10_000,
         status: 1)
-      @invoice_item_6 = InvoiceItem.create!(
+      @invoice_item_5 = InvoiceItem.create!(
         item: @item_5,
         invoice: @invoice_2,
         quantity: 5,
         unit_price: 5_000,
+        status: 1)
+      @invoice_item_6 = InvoiceItem.create!(
+        item: @item_3,
+        invoice: @invoice_2,
+        quantity: 1,
+        unit_price: 60_000,
         status: 1)
     end
 
@@ -125,6 +125,13 @@ RSpec.describe Invoice do
 
         merchant_2_expected = @invoice_2.discounted_revenue_for_merchant(@merchant_2)
         expect(merchant_2_expected.round).to eq(31_750)
+      end
+    end
+
+    describe '#invoice_merchant_id' do
+      it 'returns the merchant_id associated with the invoice' do
+        expect(@invoice_1.merchant_id).to eq(@merchant_1.id)
+        expect(@invoice_2.merchant_id).to eq(@merchant_2.id)
       end
     end
   end
