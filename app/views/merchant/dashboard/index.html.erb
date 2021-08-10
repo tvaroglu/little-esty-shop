@@ -56,7 +56,7 @@
       <tr id="item-<%= "#{item.id}_#{item.invoice_id}" %>">
         <td><%= "#{idx + 1}" %></td>
         <td><%= "#{item.name}" %></td>
-        <td><%= link_to "#{item.invoice_id}", merchant_invoice_path(@merchant.id, item.invoice_id), class:"btn btn-outline-dark navbar-custom" %></td>
+        <td><%= link_to "#{item.invoice_id}", merchant_invoice_path(@merchant.id, item.invoice_id), class:"btn btn-sm btn-outline-dark navbar-custom" %></td>
         <td><%= "#{item.format_date(item.invoiced_date)}" %></td>
       </tr>
     <% end %>
