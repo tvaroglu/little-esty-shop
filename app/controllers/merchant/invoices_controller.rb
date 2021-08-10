@@ -24,7 +24,7 @@ class Merchant::InvoicesController < ApplicationController
     @invoice_item = InvoiceItem.find(params[:ii_id])
     @invoice_item.update(status: params[:status])
     @invoice_item.save
-    redirect_to "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
+    redirect_to merchant_invoice_path(@merchant.id, @invoice.id)
     flash[:notice] = "Item status successfully updated!"
   end
 

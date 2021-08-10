@@ -3,9 +3,11 @@
     <tr>
       <th colspan="3" style="font-family:Quicksand;"><strong>Invoice ID: <%= @invoice.id %></strong>
         <br>
-        Total Invoice Revenue Potential: <%= number_to_currency("#{@invoice.invoice_revenue/100.00}") %>
+        Total Invoice Revenue Potential: <%= number_to_currency(@invoice.invoice_revenue / 100.00) %>
         <br>
-        Discounted Revenue Potential: <%= number_to_currency("#{@invoice.invoice_revenue/100.00}") %>
+        <% if @merchant.has_discounts? %>
+          Discounted Revenue Potential: <%= number_to_currency(@invoice.discounted_revenue_for_merchant(@merchant) / 100.00) %>
+        <% end %>
       </th>
     </tr>
   </thead >

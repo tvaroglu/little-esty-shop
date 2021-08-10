@@ -47,23 +47,16 @@ RSpec.describe Discount do
       end
     end
 
-    describe '#has_multiple_discounts?' do
-      it "returns a boolean to signify whether a merchant has multiple discounts" do
-        expect(@merchant_1.has_multiple_discounts?).to be true
-        expect(@merchant_2.has_multiple_discounts?).to be false
+    describe '#has_discounts?' do
+      it "returns a boolean to signify whether a merchant has discounts" do
+        expect(@merchant_1.has_discounts?).to be true
+        expect(@merchant_2.has_discounts?).to be false
       end
     end
 
     describe '#discounts_ordered_by_percentage_discount' do
       it "returns all discounts in descending order of percentage_discount when a merchant has multiple discounts" do
         expect(@merchant_1.discounts_ordered_by_percentage_discount).to eq([@discount_2, @discount_1])
-      end
-    end
-
-    describe '#best_discount' do
-      it "returns the best discount for a merchant based on the percentage_discount column" do
-        expect(@merchant_1.best_discount).to eq(@discount_2)
-        expect(@merchant_2.best_discount).to eq(nil)
       end
     end
   end

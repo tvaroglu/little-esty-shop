@@ -39,6 +39,10 @@ RSpec.describe Invoice do
         name: 'what',
         description: "testy",
         unit_price: 10_000)
+      @item_5 = @merchant_2.items.create!(
+        name: 'what a burger',
+        description: "yummy",
+        unit_price: 5_000)
 
       @customer_1 = Customer.create!(
         first_name: 'Ben',
@@ -77,6 +81,12 @@ RSpec.describe Invoice do
         quantity: 2,
         unit_price: 10_000,
         status: 1)
+      @invoice_item_6 = InvoiceItem.create!(
+        item: @item_5,
+        invoice: @invoice_2,
+        quantity: 5,
+        unit_price: 5_000,
+        status: 1)
     end
 
     describe '#invoice_revenue' do
@@ -85,36 +95,36 @@ RSpec.describe Invoice do
       end
     end
 
-    describe '#invoice_item_quantities' do
+    describe '#invoice_item_totals_ordered_by_quantity' do
       it 'calculates the total quantity ordered and revenue potential for each item on the invoice' do
-        expected = @invoice_1.invoice_item_totals
-        expected_with_optional_arg = @invoice_1.invoice_item_totals(@merchant_1.id)
+        expected = @invoice_1.invoice_item_totals_ordered_by_quantity
+        expected_with_optional_arg = @invoice_1.invoice_item_totals_ordered_by_quantity(@merchant_1.id)
         expect(expected).to eq(expected_with_optional_arg)
 
-        expect(@invoice_2.invoice_item_totals).to_not eq(@invoice_2.invoice_item_totals(@merchant_2.id))
+        expect(@invoice_2.invoice_item_totals_ordered_by_quantity).to_not eq(@invoice_2.invoice_item_totals_ordered_by_quantity(@merchant_2.id))
 
         expect(expected.length).to eq(3)
-        expect(expected[0].id).to eq(@invoice_item_1.id)
-        expect(expected[1].id).to eq(@invoice_item_2.id)
-        expect(expected[2].id).to eq(@invoice_item_3.id)
+        expect(expected[0].id).to eq(@invoice_item_3.id)
+        expect(expected[1].id).to eq(@invoice_item_1.id)
+        expect(expected[2].id).to eq(@invoice_item_2.id)
 
-        expect(expected[0].quantity).to eq(@invoice_item_1.quantity)
-        expect(expected[1].quantity).to eq(@invoice_item_2.quantity)
-        expect(expected[2].quantity).to eq(@invoice_item_3.quantity)
+        expect(expected[0].quantity).to eq(@invoice_item_3.quantity)
+        expect(expected[1].quantity).to eq(@invoice_item_1.quantity)
+        expect(expected[2].quantity).to eq(@invoice_item_2.quantity)
 
-        expect(expected[0].revenue_potential).to eq(@invoice_item_1.quantity * @invoice_item_1.unit_price)
-        expect(expected[1].revenue_potential).to eq(@invoice_item_2.quantity * @invoice_item_2.unit_price)
-        expect(expected[2].revenue_potential).to eq(@invoice_item_3.quantity * @invoice_item_3.unit_price)
+        expect(expected[0].revenue_potential).to eq(@invoice_item_3.quantity * @invoice_item_3.unit_price)
+        expect(expected[1].revenue_potential).to eq(@invoice_item_1.quantity * @invoice_item_1.unit_price)
+        expect(expected[2].revenue_potential).to eq(@invoice_item_2.quantity * @invoice_item_2.unit_price)
       end
     end
 
     describe '#discounted_revenue_for_merchant' do
       it 'calculates the total discounted revenue for the merchant invoice' do
         merchant_1_expected = @invoice_1.discounted_revenue_for_merchant(@merchant_1)
-        expect(merchant_1_expected).to eq(296_500)
+        expect(merchant_1_expected.round).to eq(296_500)
 
         merchant_2_expected = @invoice_2.discounted_revenue_for_merchant(@merchant_2)
-        expect(merchant_2_expected).to eq(15_000)
+        expect(merchant_2_expected.round).to eq(31_750)
       end
     end
   end
