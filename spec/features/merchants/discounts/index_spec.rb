@@ -52,19 +52,19 @@ RSpec.describe 'Merchants Discounts Index Page' do
     expect(@discount_1.status_opposite).to eq('disabled')
 
     within "#discounts-#{@discount_1.id}" do
-      expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
+      expect(page).to have_content("Bulk Discount:#{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
       expect(page).to have_link('View')
       expect(page).to have_link('Delete')
     end
 
     within "#discounts-#{@discount_2.id}" do
-      expect(page).to have_content("Bulk Discount: #{@discount_2.formatted_percentage} off #{@discount_2.quantity_threshold} items")
+      expect(page).to have_content("Bulk Discount:#{@discount_2.formatted_percentage} off #{@discount_2.quantity_threshold} items")
       expect(page).to have_link('View')
       expect(page).to have_link('Delete')
     end
 
     within "#discounts-#{@discount_3.id}" do
-      expect(page).to have_content("Bulk Discount: #{@discount_3.formatted_percentage} off #{@discount_3.quantity_threshold} items")
+      expect(page).to have_content("Bulk Discount:#{@discount_3.formatted_percentage} off #{@discount_3.quantity_threshold} items")
       expect(page).to have_link('View')
       expect(page).to have_link('Delete')
     end
@@ -107,14 +107,30 @@ RSpec.describe 'Merchants Discounts Index Page' do
     # And I no longer see the discount listed
   it 'displays a link to delete the bulk discount' do
     within "#discounts-#{@discount_1.id}" do
-      expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
+      expect(page).to have_content("Bulk Discount:#{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
       expect(page).to have_link('Delete')
       # save_and_open_page
       click_on('Delete')
       expect(current_path).to eq(merchant_discounts_path(@merchant.id))
     end
     # save_and_open_page
-    expect(page).to_not have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
+    expect(page).to_not have_content("Bulk Discount:#{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
   end
+
+  # As a merchant,
+    # when I visit the discounts index page,
+    # In the Holiday Discounts section, I see a `create discount` button next to each of the 3 upcoming holidays.
+    # When I click on the button I am taken to a new discount form that has the form fields auto populated with the following:
+      # Discount name: <name of holiday> discount
+      # Percentage Discount: 30
+      # Quantity Threshold: 2
+    # I can leave the information as is, or modify it before saving.
+    # I should be redirected to the discounts index page where I see the newly created discount added to the list of discounts.
+    it 'displays a link to create a new holiday bulk discount' do
+      within "#holidays-Labour" do
+        # save_and_open_page
+        expect(page).to have_link('Create New Holiday Discount')
+      end
+    end
 
 end

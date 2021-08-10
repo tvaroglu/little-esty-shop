@@ -33,16 +33,13 @@ RSpec.describe "The Merchant Discount create page" do
     expect(current_path).to eq(new_merchant_discount_path(@merchant_1.id))
 
     fill_in('Quantity Threshold:', with: @discount.quantity_threshold)
-    click_on('Create Discount')
-    expect(page).to have_content("All fields are required.")
-
-    fill_in('Quantity Threshold:', with: @discount.quantity_threshold)
     fill_in('Percentage Discount:', with: @discount.percentage_discount)
     click_on('Create Discount')
 
     expect(current_path).to eq(merchant_discounts_path(@merchant_1.id))
 
-    expect(page).to have_content("Bulk Discount: #{@discount.formatted_percentage} off #{@discount.quantity_threshold} items")
+    expect(page).to have_content("#{@discount.formatted_percentage} off")
+    expect(page).to have_content("#{@discount.quantity_threshold} items")
   end
 
 end
