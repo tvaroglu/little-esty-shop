@@ -6,7 +6,7 @@
 [![Forks][forks-shield]][forks-url]
 # Welcome to Little Esty - A database driven web application
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/58891447/127079509-57ae82d1-8793-41fa-a8a9-4bfe25f86b6a.png" alt="little_etsy_shop_db_schema"/>
+  <img src="https://user-images.githubusercontent.com/58891447/128744096-e92358e8-3cfa-4f2f-b4c9-3709b22e1963.png" alt="little_etsy_shop_db_schema"/>
 </p>
 
 <p align="center">
@@ -49,6 +49,7 @@ Learning goals and areas of focus consisted of:
 - Launchy
 - Orderly
 - SimpleCov
+- Faraday
 - Git/GitHub
 - HTML
 - CSS

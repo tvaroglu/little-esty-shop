@@ -73,4 +73,12 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+  def has_discounts?
+    discounts.count > 0
+  end
+
+  def discounts_ordered_by_percentage_discount
+    discounts.order(percentage_discount: :desc)
+  end
+
 end
