@@ -219,7 +219,7 @@ RSpec.describe 'Merchants Dashboard Page' do
     within "#item-table-headers" do
       expect(page).to have_content("Item")
       expect(page).to have_content("Name")
-      expect(page).to have_content("Invoice#")
+      expect(page).to have_content("Invoice")
       expect(page).to have_content("Transaction Date")
     end
 

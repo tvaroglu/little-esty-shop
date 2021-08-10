@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "The Merchant Invoice show page" do
   before :each do
     @merchant1 = Merchant.create!(name: 'Korbanth')
-    @discount_1 = @merchant1.discounts.create!(quantity_threshold: 5, percentage_discount: 0.25, status: 0)
-    @discount_2 = @merchant1.discounts.create!(quantity_threshold: 2, percentage_discount: 0.10, status: 0)
+    @discount1 = @merchant1.discounts.create!(quantity_threshold: 5, percentage_discount: 0.25, status: 0)
+    @discount2 = @merchant1.discounts.create!(quantity_threshold: 2, percentage_discount: 0.10, status: 0)
     @merchant2 = Merchant.create!(name: 'Borkanth')
 
     @item1 = @merchant1.items.create!(
@@ -136,4 +136,18 @@ RSpec.describe "The Merchant Invoice show page" do
       expect(page).to have_content("Discounted Revenue Potential: #{number_to_currency(@invoice1.discounted_revenue_for_merchant(@merchant1) / 100.00)}")
     end
   end
+
+  describe 'links to discount show pages' do
+    # As a merchant
+      # When I visit my merchant invoice show page
+      # Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)
+    it 'can take the user to the applied discount for each invoite item' do
+      within("div#id-#{@invoice_item5.id}") do
+        expect(page).to have_content('View Applied Discount')
+        click_on 'View Applied Discount'
+        expect(current_path).to eq(merchant_discount_path(@merchant1, @discount1))
+      end
+    end
+  end
+
 end
