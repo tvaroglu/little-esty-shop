@@ -22,10 +22,10 @@
     </tr>
   </thead >
   <tbody id="top-customers">
-    <tr id="customer-table-headers">
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Total Purchases</th>
+    <tr id="customer-table-headers" class="custom" style="font-family: Quicksand;">
+      <th>Rank:</th>
+      <th>Name:</th>
+      <th>Total Purchases:</th>
     </tr>
     <% @top_customers.each_with_index do |customer, idx| %>
       <tr id="customer-<%= customer.id %>">
@@ -46,11 +46,11 @@
     </tr>
   </thead >
   <tbody id="items-pending-shipment">
-    <tr id="item-table-headers">
-      <th>Item</th>
-      <th>Name</th>
-      <th>Invoice#</th>
-      <th>Transaction Date</th>
+    <tr id="item-table-headers" class="custom" style="font-family: Quicksand;">
+      <th>Item:</th>
+      <th>Name:</th>
+      <th>Invoice:</th>
+      <th>Transaction Date:</th>
     </tr>
     <% @pending_items.each_with_index do |item, idx| %>
       <tr id="item-<%= "#{item.id}_#{item.invoice_id}" %>">

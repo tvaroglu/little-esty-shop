@@ -1,9 +1,9 @@
 <%= link_to 'Return to Dashboard', merchant_dashboard_index_path(@merchant.id), class:"btn btn-outline-dark navbar-custom" %>
-
+<br><br>
 <h1><%= @merchant.name %>'s Items</h1>
-<br/>
+<br>
 <div align="center">
-<%= link_to 'Create New Item', new_merchant_item_path, class: "btn btn-secondary navbar-custom"%>
+  <%= link_to 'Create New Item', new_merchant_item_path, class: "btn btn-outline-dark navbar-custom"%>
 </div>
 <br><br>
 
@@ -14,17 +14,17 @@
     </tr>
   </thead>
   <tbody>
-      <table class="table mb-0 table-striped table-hover navbar-custom">
-        <tr id="item-table-headers">
-          <th class="table-info">Item Rank:</th>
-          <th class="table-info">Item Name:</th>
-          <th class="table-info">Top Selling Date:</th>
-          <th class="table-info">Total Revenue Generated:</th>
+      <table class="table table-striped table-hover navbar-custom">
+        <tr id="item-table-headers" class="custom" style="font-family: Quicksand;">
+          <th>Item Rank:</th>
+          <th>Item Name:</th>
+          <th>Top Selling Date:</th>
+          <th>Total Revenue Generated:</th>
         </tr>
           <% @merchant.top_five_items.each_with_index do |item, idx| %>
             <tr id="item-<%= item.id %>">
               <td><%= "#{idx + 1}" %></td>
-              <td><%= link_to item.name, merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm" %></td>
+              <td><%= link_to item.name, merchant_item_path(@merchant.id, item.id), class: "btn btn-sm btn-outline-dark navbar-custom" %></td>
               <td><%= "#{item.item_best_day(item.id).first.purchase_date}" %></td>
               <td><%= number_to_currency(("#{item.total_item_price}".to_i)/100.00) %></td>
             </tr>
@@ -42,28 +42,28 @@
   </thead>
   <tbody>
     <table class="table mb-0 table-striped table-hover navbar-custom">
-      <tr id="item-table-headers">
-        <th class="table-info">Item Name:</th>
-        <th class="table-info">Item Status:</th>
-        <th class="table-info">Enable/Disable:</th>
-        <th class="table-info">Show Page:</th>
-        <th class="table-info">Edit Page:</th>
+      <tr id="item-table-headers" class="custom" style="font-family: Quicksand;">
+        <th>Item Name:</th>
+        <th>Item Status:</th>
+        <th>Enable/Disable:</th>
+        <th>Show Page:</th>
+        <th>Edit Page:</th>
       </tr>
       <tr id="sort-buttons">
-        <th class="table-info"><%= button_to "Sort Alphabetically", merchant_items_path(@merchant.id), method: :get, params: { sort: 'name' }, class: "btn btn-secondary btn-sm"   %></th>
-        <th class="table-info"><%= button_to "Sort by Updated Date", merchant_items_path(@merchant.id), method: :get, params: { sort: 'date' }, class: "btn btn-secondary btn-sm "   %></th>
-        <th class="table-info"></th>
-        <th class="table-info"></th>
-        <th class="table-info"></th>
+        <th><%= button_to "Sort Alphabetically", merchant_items_path(@merchant.id), method: :get, params: { sort: 'name' }, class: "btn btn-outline-dark navbar-custom" %></th>
+        <th><%= button_to "Sort by Updated Date", merchant_items_path(@merchant.id), method: :get, params: { sort: 'date' }, class: "btn btn-outline-dark navbar-custom" %></th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
         <% @items.each do |item| %>
           <tr id= "merchant_item-<%= item.id %>">
             <td><%= item.name %></td>
             <td><%= item.enable.capitalize %>d</td>
             <td><%= button_to "#{item.enable_opposite.capitalize} Item", merchant_item_path(@merchant.id, item.id), method: :patch,
-                      params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-secondary btn-sm" %></td>
-            <td><%= link_to 'View', merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm" %></td>
-            <td><%= link_to 'Edit', edit_merchant_item_path(@merchant.id, item.id), class: "btn btn-secondary btn-sm" %></td>
+                      params: { direct: :enable, item: { id: item.id, enable: item.enable_opposite }}, class: "btn btn-sm btn-outline-dark navbar-custom" %></td>
+            <td><%= link_to 'View', merchant_item_path(@merchant.id, item.id), class: "btn btn-sm btn-outline-dark navbar-custom" %></td>
+            <td><%= link_to 'Edit', edit_merchant_item_path(@merchant.id, item.id), class: "btn btn-sm btn-outline-dark navbar-custom" %></td>
           </tr>
         <% end %>
     </table
