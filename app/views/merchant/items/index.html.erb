@@ -1,11 +1,8 @@
 <%= link_to 'Return to Dashboard', merchant_dashboard_index_path(@merchant.id), class:"btn btn-outline-dark navbar-custom" %>
+<%= link_to 'Create New Item', new_merchant_item_path, class: "btn btn-outline-dark navbar-custom"%>
 <br><br>
 <h1><%= @merchant.name %>'s Items</h1>
 <br>
-<div align="center">
-  <%= link_to 'Create New Item', new_merchant_item_path, class: "btn btn-outline-dark navbar-custom"%>
-</div>
-<br><br>
 
 <table id="top-item-table" class="table table-striped" style="text-align:center">
   <thead class="custom" text-align="center" align="center">

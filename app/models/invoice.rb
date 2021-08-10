@@ -12,6 +12,13 @@ class Invoice < ApplicationRecord
     invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
   end
 
+  def merchant_id
+    invoice_items.select("merchants.id AS merchant_id")
+    .joins(item: :merchant)
+    .first
+    .merchant_id
+  end
+
   def invoice_item_totals_ordered_by_quantity(merchant_id = nil)
     query = invoice_items.select("invoice_items.id, invoice_items.quantity,
       SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue_potential")

@@ -1,31 +1,30 @@
-<table class="table table-striped navbar-custom">
+<table class="table table-striped table-hover navbar-custom">
   <thead class="custom" text-align="center" align="center">
     <tr>
       <th colspan="2" style="font-family: Quicksand;">Enabled Merchants</th>
     </tr>
-</thead >
-
+  </thead>
   <tbody id="enabled">
     <% @enabled_merchants.each do |merchant| %>
       <tr class="customblack" id="enabled_merchant-<%= merchant.id %>">
         <th><%= link_to "#{merchant.name}", admin_merchant_path(merchant.id), class:"btn btn-outline-dark navbar-custom btn-sm" %></th>
         <th><%= button_to 'Edit Merchant', edit_admin_merchant_path(merchant.id), method: :get, class:"btn btn-outline-dark navbar-custom btn-sm" %></th>
       </tr>
-      <tr id="enabled_merchant_status-<%= merchant.id %>">
+      <tr id="enabled_merchant_status-<%= merchant.id %>" style="font-family: Quicksand;">
         <th>Current Status: <%= "#{merchant.status.to_s.capitalize}" %></th>
         <th><%= button_to "#{merchant.status_opposite.chop.capitalize} Merchant", admin_merchant_path(merchant.id), method: :patch, class:"btn btn-outline-dark navbar-custom btn-sm", params: { direct: 'status change', merchant: { status: merchant.status_opposite }} %></th>
       </tr>
       <tr>
-        <th><em>Top Customers</em></th>
+        <th style="font-family: Quicksand;"><strong>Top Customers</strong></th>
         <th></th>
       </tr>
         <tr>
           <td colspan="3">
-            <table class="table mb-0 table-striped navbar-custom">
-              <tr id="customer_table_headers-<%= merchant.id %>">
-                <th class="table-info">Customer Rank:</th>
-                <th class="table-info">Customer Name:</th>
-                <th class="table-info">Total Purchases:</th>
+            <table class="table table-striped table-hover navbar-custom">
+              <tr id="customer_table_headers-<%= merchant.id %>" class="table-info" style="font-family: Quicksand;">
+                <th>Customer Rank:</th>
+                <th>Customer Name:</th>
+                <th>Total Purchases:</th>
               </tr>
               <tr id="merchant_top_customers-<%= merchant.id %>">
                 <% Customer.top_customers_for_merchant(merchant.id).each_with_index do |customer, idx| %>

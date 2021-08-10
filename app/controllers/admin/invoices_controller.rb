@@ -7,6 +7,7 @@ class Admin::InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
+    @merchant = Merchant.find(@invoice.merchant_id)
   end
 
   def edit

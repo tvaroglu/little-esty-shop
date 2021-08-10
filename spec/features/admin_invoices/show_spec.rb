@@ -5,7 +5,8 @@ RSpec.describe 'Admin Invoice Show Page' do
     @customer = Customer.create(first_name: 'Tom', last_name: 'Holland')
     @i = Invoice.create!(status: 2, customer_id: @customer.id)
     @merchant1 = Merchant.create!(name: 'Korbanth')
-    @merchant2 = Merchant.create!(name: 'asdf')
+    @discount1 = @merchant1.discounts.create!(quantity_threshold: 5, percentage_discount: 0.25, status: 0)
+    @merchant2 = Merchant.create!(name: 'Borkanth')
 
 
     @item1 = @merchant1.items.create!(
@@ -58,12 +59,12 @@ RSpec.describe 'Admin Invoice Show Page' do
       unit_price: 60_000,
       status: 1)
 
-    visit "/admin/invoices/#{@invoice1.id}"
+    visit admin_invoice_path(@invoice1.id)
   end
 
   it 'is on the correct page' do
     expect(current_path).to eq("/admin/invoices/#{@invoice1.id}")
-    expect(page).to have_content("Invoice #{@invoice1.id}")
+    expect(page).to have_content("Invoice ID: #{@invoice1.id}")
   end
 
   it 'displays all of the items on the invoice and only those items' do
@@ -73,24 +74,33 @@ RSpec.describe 'Admin Invoice Show Page' do
     expect(page).to_not have_content(@item4.name)
   end
 
-  it 'displays the total revenue generated from all the items on this invoice' do
-    expect(page).to have_content("Total Invoice Revenue Potential")
-    expect(page).to have_content("$865.00")
-
+  describe 'total revenue potential' do
+    include ActionView::Helpers
+    it 'displays the total revenue generated from all the items on this invoice' do
+      expect(page).to have_content("Total Invoice Revenue Potential")
+      expect(page).to have_content(@invoice1.invoice_revenue / 100)
+    end
+    # As an admin
+      # When I visit an admin invoice show page
+      # Then I see the total revenue from this invoice (not including discounts)
+      # And I see the total discounted revenue from this invoice which includes bulk discounts in the calculation
+    it 'displays the total discounted revenue generated from all items on the invoice' do
+      expect(page).to have_content("Discounted Revenue Potential")
+      expect(page).to have_content(number_to_currency(@invoice1.discounted_revenue_for_merchant(@merchant1) / 100.00))
+    end
   end
 
-  it 'can update invoice status: happy path' do
+  it 'can update invoice status (happy path)' do
     expect(page).to have_field(:status)
 
     select "completed", :from => "status"
     click_button("Update Invoice Status")
 
-    expect(current_path).to eq("/admin/invoices/#{@invoice1.id}")
+    expect(current_path).to eq(admin_invoice_path(@invoice1.id))
     expect(page).to have_content("Invoice status successfully updated!")
   end
 
-  it 'can format the date' do
-
+  it 'can format a date' do
     @item4.created_at = '2021-08-01 14:54:04'
     expected = @item4.format_date(@item4.created_at)
 
