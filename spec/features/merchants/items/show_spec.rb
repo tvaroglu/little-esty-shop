@@ -26,6 +26,14 @@ RSpec.describe "The Merchant Item show page" do
     expect(page).to_not have_content(@item2.unit_price)
   end
 
+  it "displays a link to return to the items' index page" do
+    visit merchant_item_path(@merchant1.id, @item1.id)
+
+    expect(page).to have_link('Return to Items Index')
+    click_on 'Return to Items Index'
+    expect(current_path).to eq(merchant_items_path(@merchant1.id))
+  end
+
   describe 'Merchant Item update link' do
     # As a merchant,
       # When I visit the merchant show page of an item

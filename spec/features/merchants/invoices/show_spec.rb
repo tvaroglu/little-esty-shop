@@ -69,6 +69,12 @@ RSpec.describe "The Merchant Invoice show page" do
     expect(current_path).to eq(merchant_invoice_path(@merchant1.id, @invoice1.id))
   end
 
+  it "displays a link to return to the invoices' index page" do
+    expect(page).to have_link('Return to Invoices Index')
+    click_on 'Return to Invoices Index'
+    expect(current_path).to eq(merchant_invoices_path(@merchant1.id))
+  end
+
   it 'displays the invoice attributes' do
     expect(page).to have_content("Invoice ID: #{@invoice1.id}")
     expect(page).to have_content("#{@invoice1.status.capitalize}")

@@ -10,7 +10,6 @@
 <% end %>
 <div align="center">
   <%= form_with url: merchant_discounts_path(params[:merchant_id]), method: :post, local: true, :html => { :class => 'card navbar-custom card-body', :style => 'width: 15rem;' } do |f| %>
-
     <%= f.label :name, "Discount Name:" %>
     <div style="padding-top:10px;">
       <%= f.text_field :name, value: discount_name %><br>
