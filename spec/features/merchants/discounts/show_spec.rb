@@ -43,6 +43,14 @@ RSpec.describe "The Merchant Discount show page" do
       quantity: 1,
       unit_price: 60_000,
       status: 1)
+      
+    @mock_response = [
+      {"date"=>"2021-11-11", "name"=>"Veterans Day"},
+      {"date"=>"2021-10-11", "name"=>"Columbus Day"},
+      {"date"=>"2021-09-06", "name"=>"Labour Day"},
+      {"date"=>"2021-07-05", "name"=>"Independence Day"}
+    ]
+    allow(API).to receive(:render_request).and_return(@mock_response)
 
     visit merchant_discount_path(@merchant.id, @discount_1.id)
   end
@@ -52,13 +60,20 @@ RSpec.describe "The Merchant Discount show page" do
     # Then I see the bulk discount's quantity threshold and percentage discount
   it "displays the bulk discount's quantity threshold and percentage" do
     expect(page).to have_content("Merchant Discount")
-    expect(page).to have_content("Bulk Discount: #{@discount_1.formatted_percentage} off #{@discount_1.quantity_threshold} items")
+    expect(page).to have_content("#{@discount_1.formatted_percentage} off")
+    expect(page).to have_content("#{@discount_1.quantity_threshold} items")
   end
 
   it "displays a link to the bulk discount's edit page" do
     expect(page).to have_link("Edit")
     click_on "Edit"
     expect(current_path).to eq(edit_merchant_discount_path(@merchant.id, @discount_1.id))
+  end
+
+  it "displays a link to return to the bulk discounts' index page" do
+    expect(page).to have_link('Return to Discounts Index')
+    click_on 'Return to Discounts Index'
+    expect(current_path).to eq(merchant_discounts_path(@merchant.id))
   end
 
 end

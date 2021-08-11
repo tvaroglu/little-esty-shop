@@ -1,8 +1,10 @@
+<%= link_to 'Return to Discounts Index', merchant_discounts_path(@merchant.id), class:"btn btn-outline-dark navbar-custom" %>
+<br>
 <h1>Merchant Discount</h1>
 <br>
 <div align="center">
   <div class="card-body card navbar-custom" style="width: 18rem; text-align:center;">
-    <h5 class="card-title"><em>Bulk Discount: </em><br><%= "#{@discount.formatted_percentage} off #{@discount.quantity_threshold} items"%></h5>
+    <h5 class="card-title"><%= @discount.name %><br><%= "#{@discount.formatted_percentage} off #{@discount.quantity_threshold} items"%></h5>
     <div style="padding-top:10px;">
       <td><%= link_to 'Edit', edit_merchant_discount_path((params[:merchant_id]), @discount.id), class:"btn btn-outline-dark navbar-custom" %></td>
     </div>

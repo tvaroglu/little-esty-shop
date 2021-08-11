@@ -13,9 +13,12 @@
           <td><%= holiday %>:&nbsp</td>
           <td><%= @merchant.format_date(Date.parse(date)) %></td>
           <br/>
+          <div id="holidays-<%= holiday.to_s.split(' ')[0] %>" align="center" style="padding-top:10px;">
+            <%= link_to 'Create New Holiday Discount', new_merchant_discount_path(@merchant.id, "#{holiday.to_s}"), class:"btn btn-sm btn-outline-dark navbar-custom" %>
+          </div>
+          <br/>
         <% end %>
       </div>
-    <br>
   </div>
 </div>
 <br>
@@ -28,10 +31,12 @@
 <% @discounts.each do |disc| %>
   <div id="discounts-<%= disc.id %>" class="card navbar-custom" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"><em>Bulk Discount: </em><br><%= "#{disc.formatted_percentage} off #{disc.quantity_threshold} items"%></h5>
+      <h5 class="card-title"><%= disc.name %><br><%= "#{disc.formatted_percentage} off #{disc.quantity_threshold} items"%></h5>
         <td><%= link_to 'View', merchant_discount_path((params[:merchant_id]), disc.id), method: :get, class:"btn btn-outline-dark navbar-custom" %></td>
         <td><%= link_to 'Delete', merchant_discount_path((params[:merchant_id]), disc.id), method: :delete, class:"btn btn-outline-dark navbar-custom" %></td>
     </div>
   </div>
   <br/>
 <% end %>
+<br>
+<br>
