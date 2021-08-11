@@ -121,9 +121,11 @@ RSpec.describe Invoice do
     describe '#discounted_revenue_for_merchant' do
       it 'calculates the total discounted revenue for the merchant invoice' do
         merchant_1_expected = @invoice_1.discounted_revenue_for_merchant(@merchant_1)
+        # ($60k * 6) * 0.75 = $270k + $26.5k = $296.5k
         expect(merchant_1_expected.round).to eq(296_500)
 
         merchant_2_expected = @invoice_2.discounted_revenue_for_merchant(@merchant_2)
+        # ($10k * 2) * 0.75 = $15k + (($5k * 5) * 0.67) = $31.75k
         expect(merchant_2_expected.round).to eq(31_750)
       end
     end

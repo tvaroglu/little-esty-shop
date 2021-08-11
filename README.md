@@ -177,4 +177,4 @@ This project requires Ruby 2.7.2.
 
     ```
 
-* [Heroku Deployment](https://limitless-anchorage-42971.herokuapp.com/), for production
+* [Heroku Deployment](https://tvaroglu-little-esty-shop.herokuapp.com/), for production
