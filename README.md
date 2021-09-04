@@ -17,7 +17,7 @@ Find the [project spec here](https://github.com/turingschool-examples/little-est
 ## Table of Contents
 
 - [Overview](#overview)
-- [Tools Utilized](#tools-used)
+- [Tools Utilized](#framework)
 - [Contributing](#contributors)
 
 # README
@@ -40,24 +40,47 @@ Learning goals and areas of focus consisted of:
 
 [Technical Requirements](https://github.com/turingschool-examples/little-esty-shop/blob/main/doc/user_stories.md)
 
-### <ins>Tools Used</ins>
-- Ruby 2.7.2
-- Rails 5.2.6
-- PostgresQL
-- Postico
-- Capybara
-- Launchy
-- Orderly
-- SimpleCov
-- Faraday
-- Git/GitHub
-- HTML
-- CSS
-- Bootstrap
-- RSpec
-- Pry
-- Atom
-- VS Code
+#### Framework
+<p>
+  <img src="https://img.shields.io/badge/Ruby%20On%20Rails-b81818.svg?&style=flat&logo=rubyonrails&logoColor=white" />
+</p>
+
+#### Languages
+<p>
+  <img src="https://img.shields.io/badge/Ruby-CC0000.svg?&style=flaste&logo=ruby&logoColor=white" />
+  <img src="https://img.shields.io/badge/ActiveRecord-CC0000.svg?&style=flaste&logo=rubyonrails&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-0EB201.svg?&style=flaste&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6.svg?&style=flaste&logo=css3&logoColor=white" />
+</p>
+
+#### Tools
+<p>
+  <img src="https://img.shields.io/badge/Atom-66595C.svg?&style=flaste&logo=atom&logoColor=white" />  
+  <img src="https://img.shields.io/badge/Git-F05032.svg?&style=flaste&logo=git&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitHub-181717.svg?&style=flaste&logo=github&logoColor=white" />
+  <img src="https://img.shields.io/badge/Heroku-430098.svg?&style=flaste&logo=heroku&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1.svg?&style=flaste&logo=postgresql&logoColor=white" />
+</p>
+
+#### Gems
+<p>
+  <img src="https://img.shields.io/badge/rspec-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />
+  <img src="https://img.shields.io/badge/pry-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />  
+  <img src="https://img.shields.io/badge/simplecov-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />  
+  <img src="https://img.shields.io/badge/shoulda--matchers-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />  </br>
+  <img src="https://img.shields.io/badge/launchy-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />  
+  <img src="https://img.shields.io/badge/capybara-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />
+  <img src="https://img.shields.io/badge/orderly-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />
+  <img src="https://img.shields.io/badge/faraday-b81818.svg?&style=flaste&logo=rubygems&logoColor=white" />
+</p>
+
+#### Development Principles
+<p>
+  <img src="https://img.shields.io/badge/OOP-b81818.svg?&style=flaste&logo=OOP&logoColor=white" />
+  <img src="https://img.shields.io/badge/TDD-b87818.svg?&style=flaste&logo=TDD&logoColor=white" />
+  <img src="https://img.shields.io/badge/MVC-b8b018.svg?&style=flaste&logo=MVC&logoColor=white" />
+  <img src="https://img.shields.io/badge/REST-33b818.svg?&style=flaste&logo=REST&logoColor=white" />  
+</p>
 
 ### <ins>Contributors</ins>
 
@@ -80,13 +103,13 @@ Learning goals and areas of focus consisted of:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/bfl3tch/little-esty-shop.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/bfl3tch/little-esty-shop.svg?style=flat
 [contributors-url]: https://github.com/bfl3tch/little-esty-shop/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/bfl3tch/little-esty-shop.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/bfl3tch/little-esty-shop.svg?style=flat
 [forks-url]: https://github.com/bfl3tch/little-esty-shop/network/members
-[stars-shield]: https://img.shields.io/github/stars/bfl3tch/little-esty-shop.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/bfl3tch/little-esty-shop.svg?style=flat
 [stars-url]: https://github.com/bfl3tch/little-esty-shop/stargazers
-[issues-shield]: https://img.shields.io/github/issues/bfl3tch/little-esty-shop.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/bfl3tch/little-esty-shop.svg?style=flat
 [issues-url]: https://github.com/bfl3tch/little-esty-shop/issues
 
 
@@ -119,7 +142,7 @@ This project requires Ruby 2.7.2.
 * From the command line, install gems and set up your DB:
     * `bundle`
     * `rails db:create`
-* Run the test suite with `bundle exec rspec`.
+* Run the test suite with `bundle exec rspec -fd`.
 * Run your development server with `rails s` to see the app in action.
 
 ## Phases
@@ -147,7 +170,7 @@ This project requires Ruby 2.7.2.
 
 * Database creation
     ```bash
-    $ rails db:{drop,create,migrate,seed}
+    $ rails db:{drop,create,migrate}
     Created database 'little_esty_shop_development'
     Created database 'little_esty_shop_test'
     ```
@@ -159,7 +182,7 @@ This project requires Ruby 2.7.2.
 
 * How to run the test suite
     ```bash
-    $ bundle exec rspec
+    $ bundle exec rspec -fd
     ```
 
 * [Local Deployment](http://localhost:3000), for testing:
