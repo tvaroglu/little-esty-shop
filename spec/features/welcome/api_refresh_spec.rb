@@ -58,7 +58,7 @@ RSpec.describe 'Github ApiService Statistics' do
 
     click_on('Refresh Stats 🔄')
     expect(page).to have_current_path('/')
-    expect(page).to have_content('Github ApiService Statistics Successfully Refreshed')
+    expect(page).to have_content('Github Api Statistics Successfully Refreshed')
 
     click_on('Github Stats')
     within '#dropdownmenu-github' do
@@ -75,7 +75,7 @@ RSpec.describe 'Github ApiService Statistics' do
     click_on('Github Stats')
     click_on('Refresh Stats 🔄')
     expect(page).to have_current_path('/')
-    expect(page).to have_content('Github ApiService Rate Limit Hit, Default Stats Temporarily Rendered')
+    expect(page).to have_content('Github Api Rate Limit Hit, Default Stats Temporarily Rendered')
 
     click_on('Github Stats')
     within '#dropdownmenu-github' do
