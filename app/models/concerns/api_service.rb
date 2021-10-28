@@ -42,7 +42,7 @@ class ApiService
     end
 
     def render_request(endpoint)
-      Services::RenderRequest.new(endpoint).parse
+      Services::RenderRequest.new(endpoint).format
     end
 
     def upcoming_holidays

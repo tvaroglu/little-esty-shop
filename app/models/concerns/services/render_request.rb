@@ -10,19 +10,21 @@ module Services
       end
     end
 
-    def make_request(endpoint)
+    def request(endpoint)
       Faraday.get(endpoint)
     end
 
-    def parse
+    def parse(request)
+      request.instance_of?(String) ? JSON.parse(request) : JSON.parse(request.body)
+    end
+
+    def format
       if @endpoint.nil?
         @endpoint_arr.map do |endpoint|
-          request = make_request(endpoint)
-          request.instance_of?(String) ? JSON.parse(request) : JSON.parse(request.body)
+          parse(request(endpoint))
         end.flatten
       else
-        request = make_request(@endpoint)
-        request.instance_of?(String) ? JSON.parse(request) : JSON.parse(request.body)
+        parse(request(endpoint))
       end
     end
   end

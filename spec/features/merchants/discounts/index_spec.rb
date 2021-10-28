@@ -88,11 +88,6 @@ RSpec.describe 'Merchants Discounts Index Page' do
     # In this section the name and date of the next 3 upcoming US holidays are listed.
   it 'displays a section for the next 3 upcoming holidays' do
     expected = ApiService.upcoming_holidays
-    expect(expected).to eq({
-                             'Labour Day' => '2021-09-06',
-                             'Columbus Day' => '2021-10-11',
-                             'Veterans Day' => '2021-11-11'
-                           })
 
     within '#holidays' do
       expect(page).to have_content('Upcoming Holidays:')
@@ -135,11 +130,12 @@ RSpec.describe 'Merchants Discounts Index Page' do
     # I can leave the information as is, or modify it before saving.
     # I should be redirected to the discounts index page where I see the newly created discount added to the list of discounts.
   it 'displays a link to create a new holiday bulk discount' do
-    within '#holidays-Labour' do
+    within '#holidays' do
       # save_and_open_page
       expect(page).to have_link('Create New Holiday Discount')
-      click_on 'Create New Holiday Discount'
-      expect(page).to have_current_path(new_merchant_discount_path(@merchant.id, 'Labour Day'), ignore_query: true)
+      click_on('Create New Holiday Discount', match: :first)
     end
+
+    expect(page).to have_content('New Bulk Discount')
   end
 end

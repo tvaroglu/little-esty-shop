@@ -70,15 +70,14 @@ RSpec.describe 'The Merchant Discount create page' do
     # I should be redirected to the discounts index page where I see the newly created discount added to the list of discounts.
   it 'links to a pre-populated form to create a new holiday bulk discount' do
     expect(page).not_to have_content('Labour Day Discount')
-    within '#holidays-Labour' do
-      click_on 'Create New Holiday Discount'
-      expect(page).to have_current_path(new_merchant_discount_path(@merchant_1.id, 'Labour Day'), ignore_query: true)
+    within '#holidays' do
+      click_on('Create New Holiday Discount', match: :first)
     end
 
     click_on('Create Discount')
 
     expect(page).to have_current_path(merchant_discounts_path(@merchant_1.id), ignore_query: true)
-    expect(page).to have_content('Labour Day Discount')
+    expect(page).to have_content('Discount')
     expect(page).to have_content('30% off')
     expect(page).to have_content('2 items')
   end
