@@ -1,26 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe ApiService do
-  describe 'Github ApiServices' do
+  describe 'Github API Services' do
+    it 'can return the base url and repo name for API calls' do
+      expect(ApiService.base_urls[:github]).to eq 'https://api.github.com/repos'
+
+      expect(ApiService.repo_name).to eq 'Little Esty Shop'
+    end
+
     it 'can retrieve contributor user names from contributor endpoints' do
       expected = ApiService.user_names
 
-      expect(expected.class).to eq(Hash)
-      expect(expected.keys.length).to eq(4)
-      expect(expected.values.length).to eq(4)
-      expect(expected[:taylor]).to eq('tvaroglu')
-      expect(expected[:michael]).to eq('AbbottMichael')
-      expect(expected[:elliot]).to eq('ElliotOlbright')
-      expect(expected[:brian]).to eq('bfl3tch')
+      expect(expected.class).to eq Hash
+      expect(expected.keys.length).to eq 4
+      expect(expected.values.length).to eq 4
+      expect(expected[:taylor]).to eq 'tvaroglu'
+      expect(expected[:michael]).to eq 'AbbottMichael'
+      expect(expected[:elliot]).to eq 'ElliotOlbright'
+      expect(expected[:brian]).to eq 'bfl3tch'
     end
 
     it 'can retrieve contribution endpoints and default return values' do
       expected = ApiService.contributions
 
-      expect(expected.class).to eq(Hash)
-      expect(expected.keys.length).to eq(3)
-      expect(expected.values.length).to eq(3)
-      expect(expected[:commits]).to eq(ApiService.contributors)
+      expect(expected.class).to eq Hash
+      expect(expected.keys.length).to eq 3
+      expect(expected.values.length).to eq 3
+      expect(expected[:commits]).to eq ApiService.contributors
       expect(expected[:pulls]).to eq(
         'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed'
       )
@@ -32,67 +38,40 @@ RSpec.describe ApiService do
       )
     end
 
-    it 'can initialize contributor endpoints to parse requests', :vcr do
-      mock_response = [
-        { 'sha' => '12345',
-          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
-          'author' => { 'login' => 'tvaroglu', 'id' => 12_345 } }
-      ]
+    it 'can initialize contributor endpoints to parse requests from', :vcr do
       expected = Services::RenderRequest.new(ApiService.contributors)
+
       expect(expected.endpoint_arr).to eq(ApiService.contributors.values)
-
-      # allow(Services::RenderRequest).to receive(:make_request).and_return(mock_response.first.to_json)
-      expect(expected.parse.first).to eq(mock_response.first)
     end
 
-    it 'can return a json blob from an ApiService call' do
-      mock_response = '{"login":"tvaroglu","id":58891447,"url":"https://ApiService.github.com/users/tvaroglu"}'
-      allow(Faraday).to receive(:get).and_return(mock_response)
-
+    it 'can return a json blob from an API call', :vcr do
       expected = ApiService.render_request(ApiService.contributors[:taylor])
-      expect(expected['login']).to eq('tvaroglu')
+
+      expect(expected.first.class).to eq Hash
     end
 
-    it 'can aggregate total commits by contributor' do
-      mock_response = [
-        { 'sha' => '12345',
-          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
-          'author' => { 'login' => 'tvaroglu', 'id' => 12_345 } },
-        { 'sha' => '67891',
-          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
-          'author' => { 'login' => 'bfl3tch', 'id' => 67_891 } },
-        { 'sha' => '23456',
-          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
-          'author' => { 'login' => 'tvaroglu', 'id' => 23_456 } }
-      ]
-
-      allow(ApiService).to receive(:render_request).and_return(mock_response)
+    it 'can aggregate total commits by contributor', :vcr do
       expected = ApiService.aggregate_by_author(:commits)
 
-      expect(expected.class).to eq(Hash)
-      expect(expected.keys.length).to eq(2)
-      expect(expected.values.length).to eq(2)
-      expect(expected['tvaroglu']).to eq(2)
-      expect(expected['bfl3tch']).to eq(1)
+      expect(expected.class).to eq Hash
+      expect(expected.keys.length).to eq 4
+      expect(expected.values.length).to eq 4
+      expect(expected['tvaroglu'].class).to eq Integer
+      expect(expected['AbbottMichael'].class).to eq Integer
+      expect(expected['ElliotOlbright'].class).to eq Integer
+      expect(expected['bfl3tch'].class).to eq Integer
     end
 
-    it 'can aggregate total pull requests by contributor' do
-      mock_response = [
-        { 'state' => 'closed', 'title' => 'PR #1',
-          'user' => { 'login' => 'ElliotOlbright' } },
-        { 'state' => 'closed', 'title' => 'PR #2',
-          'user' => { 'login' => 'bfl3tch' } },
-        { 'state' => 'closed', 'title' => 'PR #3',
-          'user' => { 'login' => 'ElliotOlbright' } }
-      ]
-      allow(ApiService).to receive(:render_request).and_return(mock_response)
+    it 'can aggregate total pull requests by contributor', :vcr do
       expected = ApiService.aggregate_by_author(:pulls)
 
-      expect(expected.class).to eq(Hash)
-      expect(expected.keys.length).to eq(2)
-      expect(expected.values.length).to eq(2)
-      expect(expected['ElliotOlbright']).to eq(2)
-      expect(expected['bfl3tch']).to eq(1)
+      expect(expected.class).to eq Hash
+      expect(expected.keys.length).to eq 4
+      expect(expected.values.length).to eq 4
+      expect(expected['tvaroglu'].class).to eq Integer
+      expect(expected['AbbottMichael'].class).to eq Integer
+      expect(expected['ElliotOlbright'].class).to eq Integer
+      expect(expected['bfl3tch'].class).to eq Integer
     end
 
     it 'can return an empty hash if the ApiService rate limit is hit' do
@@ -104,30 +83,30 @@ RSpec.describe ApiService do
     end
   end
 
-  describe 'Nager Date ApiServices' do
-    it 'can retrieve the public holidays endpoint for ApiService calls' do
-      expect(ApiService.nager_date_endpoint).to eq('https://date.nager.at/ApiService/v1/Get/US/2021')
+  describe 'Nager Date API Services' do
+    it 'can return the base url for API calls' do
+      expected = ApiService.base_urls
+
+      expect(expected[:nager_date]).to eq 'https://date.nager.at'
     end
 
-    it 'can call the public holidays endpoint to return a JSON response' do
-      expected = ApiServiceS::RenderRequest.new(ApiService.nager_date_endpoint)
+    it 'can initialize the public holidays endpoint to parse requests from' do
+      expected = Services::RenderRequest.new(ApiService.holidays_endpoint)
+
       expect(expected.endpoint.class).to eq(String)
     end
 
-    it 'can return the next 3 upcoming holidays from the JSON response' do
-      mock_response = [
-        { 'date' => '2021-11-11', 'name' => 'Veterans Day' },
-        { 'date' => '2021-10-11', 'name' => 'Columbus Day' },
-        { 'date' => '2021-09-06', 'name' => 'Labour Day' },
-        { 'date' => '2021-07-05', 'name' => 'Independence Day' }
-      ]
-      allow(ApiService).to receive(:render_request).and_return(mock_response)
+    it 'can return the next 3 upcoming holidays from the JSON response', :vcr do
+      expected = ApiService.upcoming_holidays
 
-      expect(ApiService.upcoming_holidays).to eq({
-                                            'Labour Day' => '2021-09-06',
-                                            'Columbus Day' => '2021-10-11',
-                                            'Veterans Day' => '2021-11-11'
-                                          })
+      expect(expected.class).to eq Hash
+      expect(expected.keys.length).to eq 3
+      expect(expected.values.length).to eq 3
+
+      expected.each do |holiday, date|
+        expect(holiday.class).to eq String
+        expect(date.class).to eq String
+      end
     end
   end
 end
