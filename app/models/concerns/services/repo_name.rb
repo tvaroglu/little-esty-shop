@@ -1,4 +1,4 @@
-module APIS
+module Services
   class RepoName
     def initialize(endpoint_name)
       @endpoint_name = endpoint_name

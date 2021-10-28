@@ -25,7 +25,7 @@ RSpec.describe 'Merchants Discounts Index Page' do
       { 'date' => '2021-09-06', 'name' => 'Labour Day' },
       { 'date' => '2021-07-05', 'name' => 'Independence Day' }
     ]
-    allow(API).to receive(:render_request).and_return(@mock_response)
+    allow(ApiService).to receive(:render_request).and_return(@mock_response)
 
     visit merchant_discounts_path(@merchant.id)
   end
@@ -87,7 +87,7 @@ RSpec.describe 'Merchants Discounts Index Page' do
     # I see a section with a header of "Upcoming Holidays"
     # In this section the name and date of the next 3 upcoming US holidays are listed.
   it 'displays a section for the next 3 upcoming holidays' do
-    expected = API.upcoming_holidays
+    expected = ApiService.upcoming_holidays
     expect(expected).to eq({
                              'Labour Day' => '2021-09-06',
                              'Columbus Day' => '2021-10-11',

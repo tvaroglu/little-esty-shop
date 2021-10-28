@@ -44,12 +44,11 @@ mock_api_response = [
 RSpec.configure do |c|
   c.before(:each, :type => :feature) do
     allow(Faraday).to receive(:get).and_return(mock_api_response.to_json)
-    ApplicationController.class_variable_set(:@@class_commits, API.contributions[:defaults][:commits])
-    ApplicationController.class_variable_set(:@@class_pulls, API.contributions[:defaults][:pulls])
+    ApplicationController.class_variable_set(:@@class_commits, ApiService.contributions[:defaults][:commits])
+    ApplicationController.class_variable_set(:@@class_pulls, ApiService.contributions[:defaults][:pulls])
     # Look into "allow any instance of x" syntax, could add more flexibility in the next project
   end
 end
-# Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

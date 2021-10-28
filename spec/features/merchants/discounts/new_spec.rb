@@ -12,7 +12,7 @@ RSpec.describe 'The Merchant Discount create page' do
       { 'date' => '2021-09-06', 'name' => 'Labour Day' },
       { 'date' => '2021-07-05', 'name' => 'Independence Day' }
     ]
-    allow(API).to receive(:render_request).and_return(@mock_response)
+    allow(ApiService).to receive(:render_request).and_return(@mock_response)
 
     visit merchant_discounts_path(@merchant_1.id)
   end

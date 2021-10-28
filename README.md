@@ -123,7 +123,7 @@ Learning goals and areas of focus consisted of:
 - Practice designing a normalized database schema and defining model relationships
 - Utilize advanced routing techniques including namespacing to organize and group like functionality together.
 - Utilize advanced active record techniques to perform complex database queries
-- Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
+- Practice consuming a public ApiService while utilizing POROs as a way to apply OOP principles to organize code
 
 ## Requirements
 - must use Rails 5.2.x

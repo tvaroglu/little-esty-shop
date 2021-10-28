@@ -1,4 +1,4 @@
-module APIS
+module Services
   class Holidays
     def initialize(response_body)
       @response_body = response_body.sort_by { |holiday| holiday['date'] }

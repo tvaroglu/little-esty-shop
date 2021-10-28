@@ -38,7 +38,7 @@ RSpec.describe 'Merchants Dashboard Page' do
       { 'date' => '2021-09-06', 'name' => 'Labour Day' },
       { 'date' => '2021-07-05', 'name' => 'Independence Day' }
     ]
-    allow(API).to receive(:render_request).and_return(mock_response)
+    allow(ApiService).to receive(:render_request).and_return(mock_response)
     click_link 'All Discounts'
 
     expect(page).to have_current_path(merchant_discounts_path(@merchant.id), ignore_query: true)

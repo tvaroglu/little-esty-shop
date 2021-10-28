@@ -1,4 +1,4 @@
-module APIS
+module Services
   class Pulls
     def initialize(response_body)
       @response_body = response_body

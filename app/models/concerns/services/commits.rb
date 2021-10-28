@@ -1,4 +1,4 @@
-module APIS
+module Services
   class Commits
     def initialize(response_body)
       @response_body = response_body
@@ -9,7 +9,6 @@ module APIS
       if @response_body.instance_of?(Array) && @response_body.all? do |author|
            !author['author'].nil?
          end
-        # grouping['commits'] = @response_body.group_by {|author| author['committer']['login']}
         grouping['commits'] = @response_body.group_by do |author|
           author['author']['login']
         end
@@ -21,7 +20,6 @@ module APIS
     def total_count_by_author
       totals = Hash.new(0)
       aggregate.each do |author, commits|
-        # totals[author] = commits.length if author != 'web-flow'
         totals[author] = commits.length unless author.nil?
       end
       totals

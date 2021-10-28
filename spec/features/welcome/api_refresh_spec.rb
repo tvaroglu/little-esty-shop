@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Github API Statistics' do
+RSpec.describe 'Github ApiService Statistics' do
   before do
     visit '/'
-    @repo_name = API.repo_name
-    @user_names = API.user_names
-    @commits = API.contributions[:defaults][:commits]
-    @pulls = API.contributions[:defaults][:pulls]
+    @repo_name = ApiService.repo_name
+    @user_names = ApiService.user_names
+    @commits = ApiService.contributions[:defaults][:commits]
+    @pulls = ApiService.contributions[:defaults][:pulls]
   end
 
   # As a visitor or an admin user
@@ -15,7 +15,7 @@ RSpec.describe 'Github API Statistics' do
     # This number is updated as each member of the team contributes more commits
     # I see the number of merged PRs across all team members
     # This number is updated as each member of the team merges more PRs
-  it 'displays the navbar dropdown for API statistics' do
+  it 'displays the navbar dropdown for ApiService statistics' do
     expect(page).to have_current_path('/')
     expect(page).to have_content('Github Stats')
 
@@ -32,7 +32,7 @@ RSpec.describe 'Github API Statistics' do
     end
   end
 
-  it 'can refresh API statistics with a redirect back to the current page' do
+  it 'can refresh ApiService statistics with a redirect back to the current page' do
     mock_response = [
       { 'state' => 'closed', 'title' => 'PR #1',
         'user' => { 'login' => 'tvaroglu' } },
@@ -58,7 +58,7 @@ RSpec.describe 'Github API Statistics' do
 
     click_on('Refresh Stats 🔄')
     expect(page).to have_current_path('/')
-    expect(page).to have_content('Github API Statistics Successfully Refreshed')
+    expect(page).to have_content('Github ApiService Statistics Successfully Refreshed')
 
     click_on('Github Stats')
     within '#dropdownmenu-github' do
@@ -68,14 +68,14 @@ RSpec.describe 'Github API Statistics' do
     end
   end
 
-  it 'can display default statistics with a redirect back to the current page if the API rate limit is hit' do
-    mock_response = { 'message' => 'API rate limit exceeded' }
+  it 'can display default statistics with a redirect back to the current page if the ApiService rate limit is hit' do
+    mock_response = { 'message' => 'ApiService rate limit exceeded' }
     allow(Faraday).to receive(:get).and_return(mock_response.to_json)
 
     click_on('Github Stats')
     click_on('Refresh Stats 🔄')
     expect(page).to have_current_path('/')
-    expect(page).to have_content('Github API Rate Limit Hit, Default Stats Temporarily Rendered')
+    expect(page).to have_content('Github ApiService Rate Limit Hit, Default Stats Temporarily Rendered')
 
     click_on('Github Stats')
     within '#dropdownmenu-github' do

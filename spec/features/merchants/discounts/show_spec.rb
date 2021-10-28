@@ -57,7 +57,7 @@ RSpec.describe 'The Merchant Discount show page' do
       { 'date' => '2021-09-06', 'name' => 'Labour Day' },
       { 'date' => '2021-07-05', 'name' => 'Independence Day' }
     ]
-    allow(API).to receive(:render_request).and_return(@mock_response)
+    allow(ApiService).to receive(:render_request).and_return(@mock_response)
 
     visit merchant_discount_path(@merchant.id, @discount_1.id)
   end

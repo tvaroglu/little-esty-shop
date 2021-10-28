@@ -1,4 +1,4 @@
-module APIS
+module Services
   class UserNames
     def initialize(endpoints)
       @endpoints = endpoints

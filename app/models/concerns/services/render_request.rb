@@ -1,4 +1,4 @@
-module APIS
+module Services
   class RenderRequest
     attr_reader :endpoint, :endpoint_arr
 
@@ -10,14 +10,18 @@ module APIS
       end
     end
 
+    def make_request(endpoint)
+      Faraday.get(endpoint)
+    end
+
     def parse
       if @endpoint.nil?
         @endpoint_arr.map do |endpoint|
-          request = API.make_request(endpoint)
+          request = make_request(endpoint)
           request.instance_of?(String) ? JSON.parse(request) : JSON.parse(request.body)
         end.flatten
       else
-        request = API.make_request(@endpoint)
+        request = make_request(@endpoint)
         request.instance_of?(String) ? JSON.parse(request) : JSON.parse(request.body)
       end
     end
