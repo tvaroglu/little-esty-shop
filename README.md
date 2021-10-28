@@ -4,6 +4,8 @@
 [![Issues][issues-shield]][issues-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Forks][forks-shield]][forks-url]
+![Build Badge][build-badge]
+
 # Welcome to Little Esty - A database driven web application
 <p align="center">
   <img src="https://user-images.githubusercontent.com/58891447/128744096-e92358e8-3cfa-4f2f-b4c9-3709b22e1963.png" alt="little_etsy_shop_db_schema"/>
@@ -115,6 +117,7 @@ Learning goals and areas of focus consisted of:
 [stars-url]: https://github.com/bfl3tch/little-esty-shop/stargazers
 [issues-shield]: https://img.shields.io/github/issues/bfl3tch/little-esty-shop.svg?style=flat
 [issues-url]: https://github.com/bfl3tch/little-esty-shop/issues
+[build-badge]: https://img.shields.io/circleci/build/github/tvaroglu/little-esty-shop?style=flat
 
 
 # Little Esty Shop

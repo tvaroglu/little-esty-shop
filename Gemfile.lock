@@ -111,6 +111,7 @@ GEM
     launchy (2.5.0)
       addressable (~> 2.7)
     libv8-node (15.14.0.1-x86_64-darwin-20)
+    libv8-node (15.14.0.1-x86_64-linux)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -131,6 +132,8 @@ GEM
     multipart-post (2.1.1)
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     orderly (0.1.1)
       capybara (>= 1.1)
@@ -256,6 +259,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
