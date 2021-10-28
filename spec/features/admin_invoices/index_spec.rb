@@ -78,8 +78,8 @@ RSpec.describe 'Admin Invoice Index Page' do
     expect(page).to have_content('Incomplete Invoices')
     expect(expected[0].invoice_id.to_s).to appear_before(expected[1].invoice_id.to_s)
     expect(expected[1].invoice_id.to_s).to appear_before(expected[2].invoice_id.to_s)
+    expect(expected[2].invoice_id.to_s).to appear_before(expected[3].invoice_id.to_s)
     expect(expected[3].invoice_id.to_s).to appear_before(expected[4].invoice_id.to_s)
-    expect(expected[4].invoice_id.to_s).to appear_before(expected[5].invoice_id.to_s)
 
     within '#item-table-headers' do
       expect(page).to have_content('Item')
