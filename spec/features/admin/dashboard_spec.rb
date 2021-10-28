@@ -15,11 +15,11 @@ RSpec.describe 'Admin Dashboard page' do
 
   it 'can take the user to the admin merchants page' do
     click_link 'Merchants Index'
-    expect(page).to have_current_path('/admin/merchants'), ignore_query: true
+    expect(page).to have_current_path('/admin/merchants')
   end
 
   it 'can take the user to the admin invoices page' do
     click_link 'Invoices Index'
-    expect(page).to have_current_path('/admin/invoices'), ignore_query: true
+    expect(page).to have_current_path('/admin/invoices')
   end
 end
