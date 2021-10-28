@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 gem 'faraday'
+gem 'json'
+gem 'date'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
@@ -41,14 +43,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
-  gem 'rspec-rails', '~> 4.0.1'
-  gem 'orderly'
-  gem 'shoulda-matchers'
-  gem 'launchy'
-  gem 'simplecov'
-  gem 'capybara'
   gem 'factory_bot_rails'
-
 end
 
 group :development do
@@ -60,6 +55,16 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'simplecov'
+  gem 'shoulda-matchers'
+  gem 'launchy'
+  gem 'capybara'
+  gem 'orderly'
+  gem 'webmock'
+  gem 'vcr'
+end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

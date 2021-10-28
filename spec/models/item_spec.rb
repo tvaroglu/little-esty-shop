@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item do
   describe 'associations' do
-    it {should have_many :invoice_items}
-    it {should have_many(:invoices).through(:invoice_items)}
+    it { should have_many :invoice_items }
+    it { should have_many(:invoices).through(:invoice_items) }
   end
 
   describe 'validations' do
@@ -15,7 +15,7 @@ RSpec.describe Item do
 
   describe 'instance methods' do
     describe '#enable_opposite' do
-      it "returns the opposite of the item's enable/disable status; " do
+      it "returns the opposite of the item's enable/disable status;" do
         @merchant1 = Merchant.create!(name: 'Tom Holland')
         @item1 = Item.create!(name: 'spider suit', description: 'saves lives', unit_price: '10000', merchant_id: @merchant1.id)
 
@@ -23,12 +23,10 @@ RSpec.describe Item do
         expect(@item1.enable_opposite).to eq('disable')
       end
     end
-
-
   end
 
   describe 'class methods' do
-    before :each do
+    before do
       @merchant_1 = Merchant.create!(name: 'Lydia Rodarte-Quayle')
       @item_1 = Item.create!(name: 'P2P', description: 'secret...', unit_price: 1000, merchant_id: @merchant_1.id)
       @item_2 = Item.create!(name: '10 Gallon Drum', description: 'for storage', unit_price: 100, merchant_id: @merchant_1.id)
@@ -81,7 +79,7 @@ RSpec.describe Item do
         expected = Item.items_ready_to_ship_by_ordered_date(@merchant_1.id)
 
         expect(expected.length).to eq(3)
-        expect(expected.all? { |item| item.class == Item } ).to be true
+        expect(expected.all? { |item| item.instance_of?(Item) }).to be true
         expect(expected[0].invoice_id).to eq(@customer_1.invoices[0].id)
         expect(expected[1].invoice_id).to eq(@customer_1.invoices[1].id)
         expect(expected[2].invoice_id).to eq(@customer_2.invoices[0].id)
@@ -91,7 +89,7 @@ RSpec.describe Item do
         expected = Item.items_ready_to_ship_by_ordered_date
 
         expect(expected.length).to eq(6)
-        expect(expected.all? { |item| item.class == Item } ).to be true
+        expect(expected.all? { |item| item.instance_of?(Item) }).to be true
         expect(expected[0].invoice_id).to eq(@customer_1.invoices[0].id)
         expect(expected[1].invoice_id).to eq(@customer_1.invoices[1].id)
         expect(expected[2].invoice_id).to eq(@customer_2.invoices[0].id)
@@ -136,6 +134,5 @@ RSpec.describe Item do
         expect(@merchant_1.items.order_by_name(:name)).to eq([@item_2, @item_3, @item_1])
       end
     end
-
   end
 end

@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   def welcome
   end
 
@@ -32,5 +31,4 @@ class ApplicationController < ActionController::Base
   def self.reset_pulls
     @@class_pulls = API.aggregate_by_author(:pulls)
   end
-
 end

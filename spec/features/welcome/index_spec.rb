@@ -1,47 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe 'Welcome Page' do
-  before :each do
+  before do
     visit '/'
   end
 
   it 'is on the correct paage' do
-    expect(current_path).to eq('/')
+    expect(page).to have_current_path('/')
   end
 
   it 'can take user to merchants index page' do
     first(:link, 'Merchants').click
 
-    expect(current_path).to eq('/merchants')
+    expect(page).to have_current_path('/merchants')
   end
 
   it 'can take the user to the admin dashboard page' do
-    within("ul#dropdownmenu-admin") do
+    within('ul#dropdownmenu-admin') do
       click_on 'Dashboard'
-      expect(current_path).to eq('/admin')
+      expect(page).to have_current_path('/admin')
     end
-
   end
 
   it 'can take the user to the admin merchants index page' do
-    within("ul#dropdownmenu-admin") do
+    within('ul#dropdownmenu-admin') do
       click_on 'Merchants'
-      expect(current_path).to eq('/admin/merchants')
+      expect(page).to have_current_path('/admin/merchants')
     end
-
   end
 
   it 'can take the user to the admin invoices index page' do
-    within("ul#dropdownmenu-admin") do
+    within('ul#dropdownmenu-admin') do
       click_on 'Invoices'
-      expect(current_path).to eq('/admin/invoices')
+      expect(page).to have_current_path('/admin/invoices')
     end
-
   end
 
   it 'can take user to admin feeling lucky index page' do
     click_link 'Feeling Lucky 😎'
 
-    expect(current_path).to eq('/')
+    expect(page).to have_current_path('/')
   end
 end

@@ -29,19 +29,22 @@ RSpec.describe API do
       expect(expected.values.length).to eq(3)
       expect(expected[:commits]).to eq(API.contributors)
       expect(expected[:pulls]).to eq(
-        'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed')
+        'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed'
+      )
       expect(expected[:defaults][:commits]).to eq(
-        {'tvaroglu' => 57, 'AbbottMichael' => 28, 'ElliotOlbright' => 49, 'bfl3tch' => 40})
+        { 'tvaroglu' => 57, 'AbbottMichael' => 28, 'ElliotOlbright' => 49, 'bfl3tch' => 40 }
+      )
       expect(expected[:defaults][:pulls]).to eq(
-        {'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7})
+        { 'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7 }
+      )
     end
 
     it 'can initialize contributor endpoints to parse requests' do
       mock_response = [
-        {"sha"=>"12345",
-          "committer"=> {"name"=>"GitHub", "email"=>"noreply@github.com"},
-          "author"=> {"login"=>"tvaroglu", "id"=>12345}}
-        ]
+        { 'sha' => '12345',
+          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
+          'author' => { 'login' => 'tvaroglu', 'id' => 12_345 } }
+      ]
       expected = APIS::RenderRequest.new(API.contributors)
       expect(expected.endpoint_arr).to eq(API.contributors.values)
 
@@ -50,7 +53,7 @@ RSpec.describe API do
     end
 
     it 'can return a json blob from an API call' do
-      mock_response = "{\"login\":\"tvaroglu\",\"id\":58891447,\"url\":\"https://api.github.com/users/tvaroglu\"}"
+      mock_response = '{"login":"tvaroglu","id":58891447,"url":"https://api.github.com/users/tvaroglu"}'
       allow(Faraday).to receive(:get).and_return(mock_response)
 
       expected = API.render_request(API.contributors[:taylor])
@@ -59,16 +62,16 @@ RSpec.describe API do
 
     it 'can aggregate total commits by contributor' do
       mock_response = [
-        {"sha"=>"12345",
-          "committer"=> {"name"=>"GitHub", "email"=>"noreply@github.com"},
-          "author"=> {"login"=>"tvaroglu", "id"=>12345}},
-        {"sha"=>"67891",
-          "committer"=> {"name"=>"GitHub", "email"=>"noreply@github.com"},
-          "author"=> {"login"=>"bfl3tch", "id"=>67891}},
-        {"sha"=>"23456",
-          "committer"=> {"name"=>"GitHub", "email"=>"noreply@github.com"},
-          "author"=> {"login"=>"tvaroglu", "id"=>23456}},
-        ]
+        { 'sha' => '12345',
+          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
+          'author' => { 'login' => 'tvaroglu', 'id' => 12_345 } },
+        { 'sha' => '67891',
+          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
+          'author' => { 'login' => 'bfl3tch', 'id' => 67_891 } },
+        { 'sha' => '23456',
+          'committer' => { 'name' => 'GitHub', 'email' => 'noreply@github.com' },
+          'author' => { 'login' => 'tvaroglu', 'id' => 23_456 } }
+      ]
 
       allow(API).to receive(:render_request).and_return(mock_response)
       expected = API.aggregate_by_author(:commits)
@@ -82,15 +85,12 @@ RSpec.describe API do
 
     it 'can aggregate total pull requests by contributor' do
       mock_response = [
-        {"state" => "closed", "title" => "PR #1",
-          "user" => {"login" => "ElliotOlbright"}
-        },
-        {"state" => "closed", "title" => "PR #2",
-          "user" => {"login" => "bfl3tch"}
-        },
-        {"state" => "closed", "title" => "PR #3",
-          "user" => {"login" => "ElliotOlbright"}
-        }
+        { 'state' => 'closed', 'title' => 'PR #1',
+          'user' => { 'login' => 'ElliotOlbright' } },
+        { 'state' => 'closed', 'title' => 'PR #2',
+          'user' => { 'login' => 'bfl3tch' } },
+        { 'state' => 'closed', 'title' => 'PR #3',
+          'user' => { 'login' => 'ElliotOlbright' } }
       ]
       allow(API).to receive(:render_request).and_return(mock_response)
       expected = API.aggregate_by_author(:pulls)
@@ -103,7 +103,7 @@ RSpec.describe API do
     end
 
     it 'can return an empty hash if the API rate limit is hit' do
-      mock_response = {"message" => "API rate limit exceeded"}
+      mock_response = { 'message' => 'API rate limit exceeded' }
       allow(API).to receive(:render_request).and_return(mock_response)
 
       expect(API.aggregate_by_author(:pulls)).to eq({})
@@ -123,18 +123,18 @@ RSpec.describe API do
 
     it 'can return the next 3 upcoming holidays from the JSON response' do
       mock_response = [
-        {"date"=>"2021-11-11", "name"=>"Veterans Day"},
-        {"date"=>"2021-10-11", "name"=>"Columbus Day"},
-        {"date"=>"2021-09-06", "name"=>"Labour Day"},
-        {"date"=>"2021-07-05", "name"=>"Independence Day"}
+        { 'date' => '2021-11-11', 'name' => 'Veterans Day' },
+        { 'date' => '2021-10-11', 'name' => 'Columbus Day' },
+        { 'date' => '2021-09-06', 'name' => 'Labour Day' },
+        { 'date' => '2021-07-05', 'name' => 'Independence Day' }
       ]
       allow(API).to receive(:render_request).and_return(mock_response)
 
       expect(API.upcoming_holidays).to eq({
-        "Labour Day" => "2021-09-06",
-        "Columbus Day" => "2021-10-11",
-        "Veterans Day" => "2021-11-11"})
+                                            'Labour Day' => '2021-09-06',
+                                            'Columbus Day' => '2021-10-11',
+                                            'Veterans Day' => '2021-11-11'
+                                          })
     end
   end
-
 end

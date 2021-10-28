@@ -1,5 +1,4 @@
 class Merchant::DiscountsController < ApplicationController
-
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @discounts = @merchant.discounts
@@ -21,17 +20,18 @@ class Merchant::DiscountsController < ApplicationController
     @discount = Discount.new(discount_params)
     if @discount.save
       redirect_to merchant_discounts_path(params[:merchant_id])
-      flash[:notice] = "Bulk discount successfully created."
+      flash[:notice] = 'Bulk discount successfully created.'
     else
       redirect_to new_merchant_discount_path(params[:merchant_id])
-      flash[:alert] = "All fields are required."
+      flash[:alert] = 'All fields are required.'
     end
   end
 
   def update
     discount = Discount.find(params[:id])
     discount.update(discount_model_params)
-    redirect_to merchant_discount_path(discount.merchant_id, discount.id), notice: "Bulk discount successfully updated."
+    redirect_to merchant_discount_path(discount.merchant_id, discount.id),
+                notice: 'Bulk discount successfully updated.'
   end
 
   def destroy
@@ -40,12 +40,14 @@ class Merchant::DiscountsController < ApplicationController
   end
 
   private
+
   def discount_params
-    params.permit(:quantity_threshold, :percentage_discount, :name, :status, :merchant_id)
+    params.permit(:quantity_threshold, :percentage_discount, :name, :status,
+                  :merchant_id)
   end
 
   def discount_model_params
-    params.require(:discount).permit(:quantity_threshold, :percentage_discount, :name, :status)
+    params.require(:discount).permit(:quantity_threshold, :percentage_discount,
+                                     :name, :status)
   end
-
 end

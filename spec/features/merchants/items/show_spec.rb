@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "The Merchant Item show page" do
-  before :each do
+RSpec.describe 'The Merchant Item show page' do
+  before do
     @merchant1 = Merchant.create!(name: 'Korbanth')
     @item1 = @merchant1.items.create!(
       name: 'SK2',
@@ -10,7 +10,7 @@ RSpec.describe "The Merchant Item show page" do
     )
     @item2 = @merchant1.items.create!(
       name: 'Shtok eco',
-      description: "Hilt side lit pcb",
+      description: 'Hilt side lit pcb',
       unit_price: 1_500
     )
   end
@@ -21,9 +21,9 @@ RSpec.describe "The Merchant Item show page" do
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@item1.description)
     expect(page).to have_content('$250.00')
-    expect(page).to_not have_content(@item2.name)
-    expect(page).to_not have_content(@item2.description)
-    expect(page).to_not have_content(@item2.unit_price)
+    expect(page).not_to have_content(@item2.name)
+    expect(page).not_to have_content(@item2.description)
+    expect(page).not_to have_content(@item2.unit_price)
   end
 
   it "displays a link to return to the items' index page" do
@@ -31,7 +31,7 @@ RSpec.describe "The Merchant Item show page" do
 
     expect(page).to have_link('Return to Items Index')
     click_on 'Return to Items Index'
-    expect(current_path).to eq(merchant_items_path(@merchant1.id))
+    expect(page).to have_current_path(merchant_items_path(@merchant1.id), ignore_query: true)
   end
 
   describe 'Merchant Item update link' do
@@ -42,7 +42,7 @@ RSpec.describe "The Merchant Item show page" do
       visit merchant_item_path(@merchant1.id, @item1.id)
 
       click_link 'Update Item Information'
-      expect(current_path).to eq(edit_merchant_item_path(@merchant1.id, @item1.id))
+      expect(page).to have_current_path(edit_merchant_item_path(@merchant1.id, @item1.id), ignore_query: true)
     end
   end
 end

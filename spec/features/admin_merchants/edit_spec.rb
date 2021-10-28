@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Merchants Edit Page' do
-  before :each do
+  before do
     @merchant1 = Merchant.create!(name: 'Tom Holland')
-
 
     visit "/admin/merchants/#{@merchant1.id}/edit"
   end
 
   it 'is on the correct page' do
-    expect(current_path).to eq("/admin/merchants/#{@merchant1.id}/edit")
+    expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}/edit", ignore_query: true)
     expect(page).to have_content("Editing Merchant: #{@merchant1.name}")
   end
 
@@ -22,8 +21,8 @@ RSpec.describe 'Admin Merchants Edit Page' do
 
     click_button 'Update Merchant'
 
-    expect(current_path).to eq("/admin/merchants/#{@merchant1.id}")
-    expect(page).to have_content("Merchant successfully updated.")
-    expect(page).to have_content("Johnny Rocket")
+    expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}", ignore_query: true)
+    expect(page).to have_content('Merchant successfully updated.')
+    expect(page).to have_content('Johnny Rocket')
   end
 end

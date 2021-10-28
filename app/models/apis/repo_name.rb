@@ -1,6 +1,5 @@
 module APIS
   class RepoName
-
     def initialize(endpoint_name)
       @endpoint_name = endpoint_name
     end
@@ -11,6 +10,5 @@ module APIS
         section.capitalize + ' '
       end.join[0..-2]
     end
-
   end
 end

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Invoice do
   describe 'associations' do
-    it {should belong_to :customer}
-    it {should have_many :transactions}
-    it {should have_many :invoice_items}
-    it {should have_many(:items).through(:invoice_items)}
+    it { should belong_to :customer }
+    it { should have_many :transactions }
+    it { should have_many :invoice_items }
+    it { should have_many(:items).through(:invoice_items) }
   end
 
   describe 'validations' do
@@ -14,7 +14,7 @@ RSpec.describe Invoice do
   end
 
   describe 'instance methods' do
-    before(:each) do
+    before do
       @merchant_1 = Merchant.create!(name: 'Korbanth')
       @discount_1 = @merchant_1.discounts.create!(quantity_threshold: 5, percentage_discount: 0.25, status: 0)
 
@@ -26,27 +26,33 @@ RSpec.describe Invoice do
       @item_1 = @merchant_1.items.create!(
         name: 'SK2',
         description: "Starkiller's lightsaber from TFU2 promo trailer",
-        unit_price: 25_000)
+        unit_price: 25_000
+      )
       @item_2 = @merchant_1.items.create!(
         name: 'Shtok eco',
-        description: "Hilt side lit pcb",
-        unit_price: 1_500)
+        description: 'Hilt side lit pcb',
+        unit_price: 1_500
+      )
       @item_3 = @merchant_1.items.create!(
         name: 'Hat',
-        description: "Signed by MJ",
-        unit_price: 60_000)
+        description: 'Signed by MJ',
+        unit_price: 60_000
+      )
       @item_4 = @merchant_2.items.create!(
         name: 'what',
-        description: "testy",
-        unit_price: 10_000)
+        description: 'testy',
+        unit_price: 10_000
+      )
       @item_5 = @merchant_2.items.create!(
         name: 'what a burger',
-        description: "yummy",
-        unit_price: 5_000)
+        description: 'yummy',
+        unit_price: 5_000
+      )
 
       @customer_1 = Customer.create!(
         first_name: 'Ben',
-        last_name: 'Franklin')
+        last_name: 'Franklin'
+      )
 
       @invoice_1 = @customer_1.invoices.create!(status: 1)
       @invoice_2 = @customer_1.invoices.create!(status: 1)
@@ -56,37 +62,43 @@ RSpec.describe Invoice do
         invoice: @invoice_1,
         quantity: 1,
         unit_price: 25_000,
-        status: 0)
+        status: 0
+      )
       @invoice_item_2 = InvoiceItem.create!(
         item: @item_2,
         invoice: @invoice_1,
         quantity: 1,
         unit_price: 1_500,
-        status: 1)
+        status: 1
+      )
       @invoice_item_3 = InvoiceItem.create!(
         item: @item_3,
         invoice: @invoice_1,
         quantity: 6,
         unit_price: 60_000,
-        status: 1)
+        status: 1
+      )
       @invoice_item_4 = InvoiceItem.create!(
         item: @item_4,
         invoice: @invoice_2,
         quantity: 2,
         unit_price: 10_000,
-        status: 1)
+        status: 1
+      )
       @invoice_item_5 = InvoiceItem.create!(
         item: @item_5,
         invoice: @invoice_2,
         quantity: 5,
         unit_price: 5_000,
-        status: 1)
+        status: 1
+      )
       @invoice_item_6 = InvoiceItem.create!(
         item: @item_3,
         invoice: @invoice_2,
         quantity: 1,
         unit_price: 60_000,
-        status: 1)
+        status: 1
+      )
     end
 
     describe '#invoice_revenue' do
@@ -101,7 +113,7 @@ RSpec.describe Invoice do
         expected_with_optional_arg = @invoice_1.invoice_item_totals_ordered_by_quantity(@merchant_1.id)
         expect(expected).to eq(expected_with_optional_arg)
 
-        expect(@invoice_2.invoice_item_totals_ordered_by_quantity).to_not eq(@invoice_2.invoice_item_totals_ordered_by_quantity(@merchant_2.id))
+        expect(@invoice_2.invoice_item_totals_ordered_by_quantity).not_to eq(@invoice_2.invoice_item_totals_ordered_by_quantity(@merchant_2.id))
 
         expect(expected.length).to eq(3)
         expect(expected[0].id).to eq(@invoice_item_3.id)
@@ -137,5 +149,4 @@ RSpec.describe Invoice do
       end
     end
   end
-
 end

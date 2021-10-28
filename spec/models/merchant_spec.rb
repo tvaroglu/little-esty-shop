@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Merchant do
   describe 'associations' do
-    it {should have_many :items}
-    it {should have_many :discounts}
+    it { should have_many :items }
+    it { should have_many :discounts }
   end
 
   describe 'validations' do
@@ -13,7 +13,7 @@ RSpec.describe Merchant do
   end
 
   describe 'methods' do
-    before :each do
+    before do
       @merchant = Merchant.create!(name: 'Tom Holland', status: 0)
 
       @customer1 = Customer.create!(first_name: 'Green', last_name: 'Goblin')
@@ -35,8 +35,8 @@ RSpec.describe Merchant do
         @customer1 = Customer.create!(first_name: 'Green', last_name: 'Goblin')
         @customer2 = Customer.create!(first_name: 'Green', last_name: 'Goblin')
 
-        @invoice1 =Invoice.create!(status: 2, customer_id: @customer1.id)
-        @invoice2 =Invoice.create!(status: 2, customer_id: @customer1.id)
+        @invoice1 = Invoice.create!(status: 2, customer_id: @customer1.id)
+        @invoice2 = Invoice.create!(status: 2, customer_id: @customer1.id)
 
         @item1 = Item.create!(name: 'spider suit', description: 'saves lives', unit_price: '10000', merchant_id: @merchant.id)
         @item2 = Item.create!(name: 'web shooter', description: 'shoots webs', unit_price: '5000', merchant_id: @merchant.id)
@@ -85,7 +85,7 @@ RSpec.describe Merchant do
     describe '#top_five_items' do
       it 'determines the top 5 most popular items ranked by total revenue generated' do
         @merchant2 = Merchant.create!(name: 'Mary Jane')
-        @item3 = Item.create!(name: 'upside down kiss', description: 'That Mary Jane Swag', unit_price: 15000, merchant_id: @merchant2.id)
+        @item3 = Item.create!(name: 'upside down kiss', description: 'That Mary Jane Swag', unit_price: 15_000, merchant_id: @merchant2.id)
 
         @customer1 = Customer.create!(first_name: 'Ben', last_name: 'Franklin')
         @invoice1 = @customer1.invoices.create!(status: 0)
@@ -144,12 +144,12 @@ RSpec.describe Merchant do
 
     describe '::top_merchants_by_revenue' do
       it 'displays top 5 merchants by revenue' do
-        merchant1 = Merchant.create!(name:'Hishiro1', status: 0)
-        merchant2 = Merchant.create!(name:'Hishiro2', status: 0)
-        merchant3 = Merchant.create!(name:'Hishiro3', status: 0)
-        merchant4 = Merchant.create!(name:'Hishiro4', status: 0)
-        merchant5 = Merchant.create!(name:'Hishiro5', status: 0)
-        merchant6 = Merchant.create!(name:'Hishiro6', status: 0)
+        merchant1 = Merchant.create!(name: 'Hishiro1', status: 0)
+        merchant2 = Merchant.create!(name: 'Hishiro2', status: 0)
+        merchant3 = Merchant.create!(name: 'Hishiro3', status: 0)
+        merchant4 = Merchant.create!(name: 'Hishiro4', status: 0)
+        merchant5 = Merchant.create!(name: 'Hishiro5', status: 0)
+        merchant6 = Merchant.create!(name: 'Hishiro6', status: 0)
 
         item1 = Item.create!(name: 'spider suit1', description: 'saves lives', unit_price: 10_000, merchant_id: merchant1.id)
         item2 = Item.create!(name: 'spider suit2', description: 'saves lives', unit_price: 10_000, merchant_id: merchant1.id)
@@ -167,9 +167,8 @@ RSpec.describe Merchant do
         invoice = Invoice.create!(status: 1, customer_id: customer.id)
         invoice2 = Invoice.create!(status: 2, customer_id: customer.id, created_at: '2021-05-02 22:50:10.189284')
 
-        transaction1 = Transaction.create!(invoice_id: invoice.id, credit_card_number: '1234123412341234', credit_card_expiration_date:'', result: 0)
-        transaction2 = Transaction.create!(invoice_id: invoice2.id, credit_card_number: '1234123412341234', credit_card_expiration_date:'', result: 0)
-
+        transaction1 = Transaction.create!(invoice_id: invoice.id, credit_card_number: '1234123412341234', credit_card_expiration_date: '', result: 0)
+        transaction2 = Transaction.create!(invoice_id: invoice2.id, credit_card_number: '1234123412341234', credit_card_expiration_date: '', result: 0)
 
         ii1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice.id, quantity: 1, unit_price: 10_000, status: 1)
         ii2 = InvoiceItem.create!(item_id: item2.id, invoice_id: invoice2.id, quantity: 2, unit_price: 10_000, status: 1)
@@ -186,22 +185,22 @@ RSpec.describe Merchant do
 
         expect(expected).to eq([merchant5, merchant4, merchant3, merchant2, merchant1])
 
-        expect(expected[0].total_revenue).to eq(190000)
-        expect(expected[1].total_revenue).to eq(150000)
-        expect(expected[2].total_revenue).to eq(110000)
-        expect(expected[3].total_revenue).to eq(70000)
-        expect(expected[4].total_revenue).to eq(30000)
+        expect(expected[0].total_revenue).to eq(190_000)
+        expect(expected[1].total_revenue).to eq(150_000)
+        expect(expected[2].total_revenue).to eq(110_000)
+        expect(expected[3].total_revenue).to eq(70_000)
+        expect(expected[4].total_revenue).to eq(30_000)
       end
     end
 
     describe '#best_day_for_merchant' do
       it 'finds the best day for a merchant' do
-        merchant1 = Merchant.create!(name:'Hishiro1', status: 0)
-        merchant2 = Merchant.create!(name:'Hishiro2', status: 0)
-        merchant3 = Merchant.create!(name:'Hishiro3', status: 0)
-        merchant4 = Merchant.create!(name:'Hishiro4', status: 0)
-        merchant5 = Merchant.create!(name:'Hishiro5', status: 0)
-        merchant6 = Merchant.create!(name:'Hishiro6', status: 0)
+        merchant1 = Merchant.create!(name: 'Hishiro1', status: 0)
+        merchant2 = Merchant.create!(name: 'Hishiro2', status: 0)
+        merchant3 = Merchant.create!(name: 'Hishiro3', status: 0)
+        merchant4 = Merchant.create!(name: 'Hishiro4', status: 0)
+        merchant5 = Merchant.create!(name: 'Hishiro5', status: 0)
+        merchant6 = Merchant.create!(name: 'Hishiro6', status: 0)
 
         item1 = Item.create!(name: 'spider suit1', description: 'saves lives', unit_price: 10_000, merchant_id: merchant1.id)
         item2 = Item.create!(name: 'spider suit2', description: 'saves lives', unit_price: 10_000, merchant_id: merchant1.id)
@@ -219,9 +218,8 @@ RSpec.describe Merchant do
         invoice = Invoice.create!(status: 1, customer_id: customer.id)
         invoice2 = Invoice.create!(status: 2, customer_id: customer.id, created_at: '2021-05-02 22:50:10.189284')
 
-        transaction1 = Transaction.create!(invoice_id: invoice.id, credit_card_number: '1234123412341234', credit_card_expiration_date:'', result: 0)
-        transaction2 = Transaction.create!(invoice_id: invoice2.id, credit_card_number: '1234123412341234', credit_card_expiration_date:'', result: 0)
-
+        transaction1 = Transaction.create!(invoice_id: invoice.id, credit_card_number: '1234123412341234', credit_card_expiration_date: '', result: 0)
+        transaction2 = Transaction.create!(invoice_id: invoice2.id, credit_card_number: '1234123412341234', credit_card_expiration_date: '', result: 0)
 
         ii1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice.id, quantity: 1, unit_price: 10_000, status: 1)
         ii2 = InvoiceItem.create!(item_id: item2.id, invoice_id: invoice2.id, quantity: 2, unit_price: 10_000, status: 1)
@@ -233,7 +231,6 @@ RSpec.describe Merchant do
         ii8 = InvoiceItem.create!(item_id: item8.id, invoice_id: invoice.id, quantity: 8, unit_price: 10_000, status: 1)
         ii9 = InvoiceItem.create!(item_id: item9.id, invoice_id: invoice.id, quantity: 9, unit_price: 10_000, status: 1)
         ii10 = InvoiceItem.create!(item_id: item10.id, invoice_id: invoice.id, quantity: 10, unit_price: 10_000, status: 1)
-
 
         expected = merchant1.best_day_for_merchant(merchant1.id)
         expect(expected.invoice_date).to eq(invoice2.created_at)
@@ -259,5 +256,4 @@ RSpec.describe Merchant do
       expect(Merchant.order_by_date(:created_at, :desc)).to eq([merchant_2, merchant_1])
     end
   end
-
 end

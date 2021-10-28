@@ -3,9 +3,7 @@ require 'json'
 require 'date'
 
 class API
-
-  def initialize
-  end
+  def initialize; end
 
   def self.contributors
     {
@@ -21,9 +19,11 @@ class API
       commits: contributors,
       pulls: 'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed',
       defaults: {
-       commits: {'tvaroglu' => 57, 'AbbottMichael' => 28, 'ElliotOlbright' => 49, 'bfl3tch' => 40},
-       pulls: {'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7}
-     }
+        commits: { 'tvaroglu' => 57, 'AbbottMichael' => 28,
+                   'ElliotOlbright' => 49, 'bfl3tch' => 40 },
+        pulls: { 'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10,
+                 'bfl3tch' => 7 }
+      }
     }
   end
 
@@ -58,6 +58,4 @@ class API
       APIS::Pulls.new(render_request(contributions[:pulls])).total_count_by_author
     end
   end
-
-
 end
