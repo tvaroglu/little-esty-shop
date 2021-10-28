@@ -58,7 +58,7 @@ RSpec.describe 'Github ApiService Statistics' do
 
     click_on('Refresh Stats 🔄')
     expect(page).to have_current_path('/')
-    expect(page).to have_content('Github Api Statistics Successfully Refreshed')
+    expect(page).to have_content('Github API Statistics Successfully Refreshed')
 
     click_on('Github Stats')
     within '#dropdownmenu-github' do
@@ -68,14 +68,14 @@ RSpec.describe 'Github ApiService Statistics' do
     end
   end
 
-  it 'can display default statistics with a redirect back to the current page if the ApiService rate limit is hit' do
-    mock_response = { 'message' => 'ApiService rate limit exceeded' }
+  it 'can display default statistics with a redirect back to the current page if the API rate limit is hit' do
+    mock_response = { 'message' => 'API rate limit exceeded' }
     allow(Faraday).to receive(:get).and_return(mock_response.to_json)
 
     click_on('Github Stats')
     click_on('Refresh Stats 🔄')
     expect(page).to have_current_path('/')
-    expect(page).to have_content('Github Api Rate Limit Hit, Default Stats Temporarily Rendered')
+    expect(page).to have_content('Github API Rate Limit Hit, Default Stats Temporarily Rendered')
 
     click_on('Github Stats')
     within '#dropdownmenu-github' do

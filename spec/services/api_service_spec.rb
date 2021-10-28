@@ -74,8 +74,8 @@ RSpec.describe ApiService do
       expect(expected['bfl3tch'].class).to eq Integer
     end
 
-    it 'can return an empty hash if the ApiService rate limit is hit' do
-      mock_response = { 'message' => 'ApiService rate limit exceeded' }
+    it 'can return an empty hash if the API rate limit is hit' do
+      mock_response = { 'message' => 'API rate limit exceeded' }
       allow(ApiService).to receive(:render_request).and_return(mock_response)
 
       expect(ApiService.aggregate_by_author(:pulls)).to eq({})

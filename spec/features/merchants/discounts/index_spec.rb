@@ -116,6 +116,7 @@ RSpec.describe 'Merchants Discounts Index Page' do
       expect(page).to have_current_path(merchant_discounts_path(@merchant.id), ignore_query: true)
     end
 
+    expect(page).to have_content('Bulk discount successfully deleted.')
     expect(page).not_to have_content("#{@discount_1.formatted_percentage} off")
     expect(page).not_to have_content("#{@discount_1.quantity_threshold} items")
   end
