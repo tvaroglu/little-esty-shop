@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants Index Page' do
-  before :each do
+  before do
     @merchant1 = Merchant.create!(name: 'Tom Holland')
     @merchant2 =  Merchant.create!(name: 'Hol Tommand')
     @merchant3 =  Merchant.create!(name: 'Boss Baby Records')
@@ -10,7 +10,7 @@ RSpec.describe 'Merchants Index Page' do
   end
 
   it 'is on the correct page' do
-    expect(current_path).to eq(merchants_path)
+    expect(page).to have_current_path(merchants_path, ignore_query: true)
     expect(page).to have_content('Merchants')
   end
 
@@ -23,7 +23,7 @@ RSpec.describe 'Merchants Index Page' do
   it 'can take user to merchant dashboard page' do
     within "#merchant-#{@merchant1.id}" do
       click_on 'Merchant Dashboard'
-      expect(current_path).to eq(merchant_dashboard_index_path(@merchant1.id))
+      expect(page).to have_current_path(merchant_dashboard_index_path(@merchant1.id), ignore_query: true)
     end
   end
 
@@ -32,14 +32,14 @@ RSpec.describe 'Merchants Index Page' do
     expect(@merchant2.name).to appear_before(@merchant3.name)
 
     click_on 'Sort Alphabetically'
-    expect(current_path).to eq(merchants_path('name'))
+    expect(page).to have_current_path(merchants_path('name'), ignore_query: true)
 
     expect(@merchant3.name).to appear_before(@merchant2.name)
     expect(@merchant2.name).to appear_before(@merchant1.name)
 
     @merchant1.update(name: 'Dom Tolland')
     click_on 'Sort by Updated Date'
-    expect(current_path).to eq(merchants_path('date'))
+    expect(page).to have_current_path(merchants_path('date'), ignore_query: true)
     expect(@merchant1.name).to appear_before(@merchant2.name)
   end
 end

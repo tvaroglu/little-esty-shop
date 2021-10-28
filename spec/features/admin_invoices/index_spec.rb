@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Invoice Index Page' do
-  before :each do
+  before do
     @merchant_1 = Merchant.create!(name: 'Lydia Rodarte-Quayle')
     @item_1 = Item.create!(name: 'P2P', description: 'secret...', unit_price: 1000, merchant_id: @merchant_1.id)
     @item_2 = Item.create!(name: '10 Gallon Drum', description: 'for storage', unit_price: 100, merchant_id: @merchant_1.id)
@@ -52,14 +52,14 @@ RSpec.describe 'Admin Invoice Index Page' do
   end
 
   it 'is on the correct page' do
-    expect(current_path).to eq('/admin/invoices')
+    expect(page).to have_current_path('/admin/invoices')
     expect(page).to have_content('Welcome Admin!')
     expect(page).to have_content('Invoices Dashboard')
   end
 
   it 'can take the user back to the dashboard' do
     click_on 'Return to Dashboard'
-    expect(current_path).to eq('/admin')
+    expect(page).to have_current_path('/admin')
   end
 
   # As an admin,
@@ -75,59 +75,58 @@ RSpec.describe 'Admin Invoice Index Page' do
     expected = Item.items_ready_to_ship_by_ordered_date
     # save_and_open_page
 
-    expect(page).to have_content("Incomplete Invoices")
-    expect("#{expected[0].invoice_id}").to appear_before("#{expected[1].invoice_id}")
-    expect("#{expected[1].invoice_id}").to appear_before("#{expected[2].invoice_id}")
-    expect("#{expected[3].invoice_id}").to appear_before("#{expected[4].invoice_id}")
-    expect("#{expected[4].invoice_id}").to appear_before("#{expected[5].invoice_id}")
+    expect(page).to have_content('Incomplete Invoices')
+    expect(expected[0].invoice_id.to_s).to appear_before(expected[1].invoice_id.to_s)
+    expect(expected[1].invoice_id.to_s).to appear_before(expected[2].invoice_id.to_s)
+    expect(expected[2].invoice_id.to_s).to appear_before(expected[3].invoice_id.to_s)
 
-    within "#item-table-headers" do
-      expect(page).to have_content("Item")
-      expect(page).to have_content("Name")
-      expect(page).to have_content("Invoice#")
-      expect(page).to have_content("Invoice Date")
+    within '#item-table-headers' do
+      expect(page).to have_content('Item')
+      expect(page).to have_content('Name')
+      expect(page).to have_content('Invoice#')
+      expect(page).to have_content('Invoice Date')
     end
 
     within "#item-#{expected[0].id}_#{expected[0].invoice_id}" do
-      expect(page).to have_content("1")
-      expect(page).to have_content("#{expected[0].name}")
-      expect(page).to have_link("#{expected[0].invoice_id}")
-      expect(page).to have_content("#{expected[0].format_date(expected[0].invoiced_date)}")
+      expect(page).to have_content('1')
+      expect(page).to have_content(expected[0].name.to_s)
+      expect(page).to have_link(expected[0].invoice_id.to_s)
+      expect(page).to have_content(expected[0].format_date(expected[0].invoiced_date).to_s)
     end
 
     within "#item-#{expected[1].id}_#{expected[1].invoice_id}" do
-      expect(page).to have_content("2")
-      expect(page).to have_content("#{expected[1].name}")
-      expect(page).to have_link("#{expected[1].invoice_id}")
-      expect(page).to have_content("#{expected[1].format_date(expected[1].invoiced_date)}")
+      expect(page).to have_content('2')
+      expect(page).to have_content(expected[1].name.to_s)
+      expect(page).to have_link(expected[1].invoice_id.to_s)
+      expect(page).to have_content(expected[1].format_date(expected[1].invoiced_date).to_s)
     end
 
     within "#item-#{expected[2].id}_#{expected[2].invoice_id}" do
-      expect(page).to have_content("3")
-      expect(page).to have_content("#{expected[2].name}")
-      expect(page).to have_link("#{expected[2].invoice_id}")
-      expect(page).to have_content("#{expected[2].format_date(expected[1].invoiced_date)}")
+      expect(page).to have_content('3')
+      expect(page).to have_content(expected[2].name.to_s)
+      expect(page).to have_link(expected[2].invoice_id.to_s)
+      expect(page).to have_content(expected[2].format_date(expected[1].invoiced_date).to_s)
     end
 
     within "#item-#{expected[3].id}_#{expected[3].invoice_id}" do
-      expect(page).to have_content("4")
-      expect(page).to have_content("#{expected[3].name}")
-      expect(page).to have_link("#{expected[3].invoice_id}")
-      expect(page).to have_content("#{expected[3].format_date(expected[3].invoiced_date)}")
+      expect(page).to have_content('4')
+      expect(page).to have_content(expected[3].name.to_s)
+      expect(page).to have_link(expected[3].invoice_id.to_s)
+      expect(page).to have_content(expected[3].format_date(expected[3].invoiced_date).to_s)
     end
 
     within "#item-#{expected[4].id}_#{expected[4].invoice_id}" do
-      expect(page).to have_content("5")
-      expect(page).to have_content("#{expected[4].name}")
-      expect(page).to have_link("#{expected[4].invoice_id}")
-      expect(page).to have_content("#{expected[4].format_date(expected[4].invoiced_date)}")
+      expect(page).to have_content('5')
+      expect(page).to have_content(expected[4].name.to_s)
+      expect(page).to have_link(expected[4].invoice_id.to_s)
+      expect(page).to have_content(expected[4].format_date(expected[4].invoiced_date).to_s)
     end
 
     within "#item-#{expected[5].id}_#{expected[5].invoice_id}" do
-      expect(page).to have_content("6")
-      expect(page).to have_content("#{expected[5].name}")
-      expect(page).to have_link("#{expected[5].invoice_id}")
-      expect(page).to have_content("#{expected[5].format_date(expected[5].invoiced_date)}")
+      expect(page).to have_content('6')
+      expect(page).to have_content(expected[5].name.to_s)
+      expect(page).to have_link(expected[5].invoice_id.to_s)
+      expect(page).to have_content(expected[5].format_date(expected[5].invoiced_date).to_s)
     end
   end
 end

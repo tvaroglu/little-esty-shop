@@ -1,24 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin Dashboard page' do 
-  before :each do 
+RSpec.describe 'Admin Dashboard page' do
+  before do
     visit '/admin'
   end
-  it 'is on the right page' do 
-    expect(current_path).to eq('/admin')
+
+  it 'is on the right page' do
+    expect(page).to have_current_path('/admin')
   end
 
   it 'displays the header' do
     expect(page).to have_content('Admin Dashboard')
-  end 
+  end
 
-  it 'can take the user to the admin merchants page' do 
+  it 'can take the user to the admin merchants page' do
     click_link 'Merchants Index'
-    expect(current_path).to eq ('/admin/merchants')
-  end  
+    expect(page).to have_current_path('/admin/merchants')
+  end
 
-  it 'can take the user to the admin invoices page' do 
+  it 'can take the user to the admin invoices page' do
     click_link 'Invoices Index'
-    expect(current_path).to eq ('/admin/invoices')
-  end 
-end 
+    expect(page).to have_current_path('/admin/invoices')
+  end
+end

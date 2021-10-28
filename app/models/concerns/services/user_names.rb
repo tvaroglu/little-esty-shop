@@ -1,17 +1,16 @@
-module APIS
+module Services
   class UserNames
-
     def initialize(endpoints)
       @endpoints = endpoints
     end
 
     def format
-      grouping = Hash.new
+      grouping = {}
       @endpoints.each do |user, endpoint_name|
-        grouping[user] = endpoint_name.split('?author=')[-1].delete_suffix('&per_page=100')
+        grouping[user] =
+          endpoint_name.split('?author=')[-1].delete_suffix('&per_page=100')
       end
       grouping
     end
-
   end
 end

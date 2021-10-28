@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
-
   def welcome
   end
 
-  @@class_commits = API.aggregate_by_author(:commits)
-  @@class_pulls = API.aggregate_by_author(:pulls)
+  @@class_commits = ApiService.aggregate_by_author(:commits)
+  @@class_pulls = ApiService.aggregate_by_author(:pulls)
 
-  @@default_commits = API.contributions[:defaults][:commits]
-  @@default_pulls = API.contributions[:defaults][:pulls]
+  @@default_commits = ApiService.contributions[:defaults][:commits]
+  @@default_pulls = ApiService.contributions[:defaults][:pulls]
 
   def self.default
     @@default_pulls
@@ -26,11 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   def self.reset_commits
-    @@class_commits = API.aggregate_by_author(:commits)
+    @@class_commits = ApiService.aggregate_by_author(:commits)
   end
 
   def self.reset_pulls
-    @@class_pulls = API.aggregate_by_author(:pulls)
+    @@class_pulls = ApiService.aggregate_by_author(:pulls)
   end
-
 end

@@ -5,14 +5,27 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+
+# Add additional requires below this line. Rails is not loaded until this point!
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter 'spec/'
+  add_filter 'app/channels/'
+  add_filter 'app/jobs/'
+end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+  config.default_cassette_options = { re_record_interval: 7.days }
+  config.configure_rspec_metadata!
 end
 
 
@@ -31,12 +44,11 @@ mock_api_response = [
 RSpec.configure do |c|
   c.before(:each, :type => :feature) do
     allow(Faraday).to receive(:get).and_return(mock_api_response.to_json)
-    ApplicationController.class_variable_set(:@@class_commits, API.contributions[:defaults][:commits])
-    ApplicationController.class_variable_set(:@@class_pulls, API.contributions[:defaults][:pulls])
+    ApplicationController.class_variable_set(:@@class_commits, ApiService.contributions[:defaults][:commits])
+    ApplicationController.class_variable_set(:@@class_pulls, ApiService.contributions[:defaults][:pulls])
     # Look into "allow any instance of x" syntax, could add more flexibility in the next project
   end
 end
-# Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

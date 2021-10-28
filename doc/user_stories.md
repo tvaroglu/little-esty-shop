@@ -432,12 +432,12 @@ I am taken back to the admin invoice show page
 And I see that my Invoice's status has now been updated
 ```
 
-## Github API Consumption
+## Github ApiService Consumption
 
-For each of these stories, you will need to hit an endpoint provided by the GitHub API in order to serve the data required on your site.
+For each of these stories, you will need to hit an endpoint provided by the GitHub ApiService in order to serve the data required on your site.
 
 ```
-GitHub API: Repo Name
+GitHub ApiService: Repo Name
 
 As a visitor or an admin user
 When I visit any page on the site
@@ -445,7 +445,7 @@ I see the name of the Github repo somewhere on the site
 ```
 
 ```
-GitHub API: User Names
+GitHub ApiService: User Names
 
 As a visitor or an admin user
 When I visit any page on the site
@@ -454,7 +454,7 @@ The most up to date usernames are always displayed
 ```
 
 ```
-GitHub API: Commits
+GitHub ApiService: Commits
 
 As a visitor or an admin user
 When I visit any page on the site
@@ -463,7 +463,7 @@ This number is updated as each member of the team contributes more commits
 ```
 
 ```
-GitHub API: PRs
+GitHub ApiService: PRs
 
 As a visitor or an admin user
 When I visit any page on the site

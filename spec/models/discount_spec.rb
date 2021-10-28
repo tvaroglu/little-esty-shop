@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Discount do
   describe 'associations' do
-    it {should belong_to :merchant}
+    it { should belong_to :merchant }
   end
 
   describe 'validations' do
@@ -16,7 +16,7 @@ RSpec.describe Discount do
   end
 
   describe 'methods' do
-    before :each do
+    before do
       @merchant_1 = Merchant.create!(name: 'Tom Holland', status: 0)
       @discount_1 = @merchant_1.discounts.create!(quantity_threshold: 1, percentage_discount: 0.25, status: 0)
       @discount_2 = @merchant_1.discounts.create!(quantity_threshold: 5, percentage_discount: 0.5, status: 0)
@@ -48,17 +48,16 @@ RSpec.describe Discount do
     end
 
     describe '#has_discounts?' do
-      it "returns a boolean to signify whether a merchant has discounts" do
+      it 'returns a boolean to signify whether a merchant has discounts' do
         expect(@merchant_1.has_discounts?).to be true
         expect(@merchant_2.has_discounts?).to be false
       end
     end
 
     describe '#discounts_ordered_by_percentage_discount' do
-      it "returns all discounts in descending order of percentage_discount when a merchant has multiple discounts" do
+      it 'returns all discounts in descending order of percentage_discount when a merchant has multiple discounts' do
         expect(@merchant_1.discounts_ordered_by_percentage_discount).to eq([@discount_2, @discount_1])
       end
     end
   end
-
 end

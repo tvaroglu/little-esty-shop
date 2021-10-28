@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'The Merchant Item New page' do
-  before :each do
+  before do
     @merchant1 = Merchant.create!(name: 'Tom Holland')
     @merchant2 = Merchant.create!(name: 'Mary Jane')
 
@@ -24,7 +24,7 @@ RSpec.describe 'The Merchant Item New page' do
     fill_in(:unit_price, with: 20_000)
     click_button 'Submit'
 
-    expect(current_path).to eq(merchant_items_path(@merchant1.id))
+    expect(page).to have_current_path(merchant_items_path(@merchant1.id), ignore_query: true)
     expect(page).to have_content('Goober')
     expect(page).to have_content('Goober successfully Created.')
     expect(Item.last.name).to eq('Goober')
@@ -35,8 +35,8 @@ RSpec.describe 'The Merchant Item New page' do
 
   it 'displays an alert when empty fields are submitted' do
     click_button 'Submit'
-    expect(current_path).to eq(new_merchant_item_path(@merchant1.id))
+    expect(page).to have_current_path(new_merchant_item_path(@merchant1.id), ignore_query: true)
 
-    expect(page).to have_content("All fields are required.")
+    expect(page).to have_content('All fields are required.')
   end
 end

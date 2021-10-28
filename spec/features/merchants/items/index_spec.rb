@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants Item Index Page' do
-  before :each do
+  before do
     @merchant2 = Merchant.create!(name: 'Mary Jane')
-    @wrongitem = Item.create!(name: 'upside down kiss', description: 'That Mary jane Swag', unit_price: 15000, merchant_id: @merchant2.id)
+    @wrongitem = Item.create!(name: 'upside down kiss', description: 'That Mary jane Swag', unit_price: 15_000, merchant_id: @merchant2.id)
 
     @customer1 = Customer.create!(first_name: 'Ben', last_name: 'Franklin')
     @invoice1 = @customer1.invoices.create!(status: 0)
@@ -54,12 +54,11 @@ RSpec.describe 'Merchants Item Index Page' do
 
     @customer1.invoices.first.transactions.create!(credit_card_number: '1234', credit_card_expiration_date: '', result: 0)
 
-
     visit merchant_items_path(@merchant1.id)
   end
 
   it 'is on the correct page' do
-    expect(current_path).to eq(merchant_items_path(@merchant1.id))
+    expect(page).to have_current_path(merchant_items_path(@merchant1.id), ignore_query: true)
     expect(page).to have_content("#{@merchant1.name}'s Items")
   end
 
@@ -68,30 +67,30 @@ RSpec.describe 'Merchants Item Index Page' do
 
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@item2.name)
-    expect(page).to_not have_content(@wrongitem.name)
+    expect(page).not_to have_content(@wrongitem.name)
   end
 
   it 'can link to the item show and edit pages' do
     within "#merchant_item-#{@item1.id}" do
       click_on 'View'
-      expect(current_path).to eq(merchant_item_path(@merchant1.id, @item1.id))
+      expect(page).to have_current_path(merchant_item_path(@merchant1.id, @item1.id), ignore_query: true)
     end
 
     visit merchant_items_path(@merchant1.id)
     within "#merchant_item-#{@item1.id}" do
       click_on 'Edit'
-      expect(current_path).to eq(edit_merchant_item_path(@merchant1.id, @item1.id))
+      expect(page).to have_current_path(edit_merchant_item_path(@merchant1.id, @item1.id), ignore_query: true)
     end
   end
 
-  describe "item disable/enable" do
-    before :each do
-      @item4 = Item.create!(name: 'sweatpants', description: 'comfy', unit_price: 15000, merchant_id: @merchant1.id)
+  describe 'item disable/enable' do
+    before do
+      @item4 = Item.create!(name: 'sweatpants', description: 'comfy', unit_price: 15_000, merchant_id: @merchant1.id)
 
       visit merchant_items_path(@merchant1.id)
     end
 
-    it "displays a button to disable or enable each item" do
+    it 'displays a button to disable or enable each item' do
       within "#merchant_item-#{@item1.id}" do
         expect(@item1.enable).to eq('enable')
         expect(page).to have_button('Disable Item')
@@ -106,7 +105,7 @@ RSpec.describe 'Merchants Item Index Page' do
       end
     end
 
-    it "clicking enable/disable button redirects back to the index page and the updated status is displayed" do
+    it 'clicking enable/disable button redirects back to the index page and the updated status is displayed' do
       within "#merchant_item-#{@item1.id}" do
         expect(@item1.enable).to eq('enable')
 
@@ -127,7 +126,7 @@ RSpec.describe 'Merchants Item Index Page' do
     it 'links to the page to create a new Merchant Item' do
       click_link('Create New Item')
 
-      expect(current_path).to eq(new_merchant_item_path(@merchant1.id))
+      expect(page).to have_current_path(new_merchant_item_path(@merchant1.id), ignore_query: true)
     end
   end
 
@@ -163,30 +162,29 @@ RSpec.describe 'Merchants Item Index Page' do
 
     it 'redirects to the merchant item show pages after you click the name links' do
       within('table#top-item-table') do
-        click_on "#{@item1.name}"
+        click_on @item1.name.to_s
 
-        expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+        expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item1.id}", ignore_query: true)
       end
     end
 
     it 'displays the total revenue generated next to each item name' do
       within("tr#item-#{@item1.id}") do
-        expect(page).to have_content("$20,000.00")
+        expect(page).to have_content('$20,000.00')
       end
       within("tr#item-#{@item20.id}") do
-        expect(page).to have_content("$13,669.60")
+        expect(page).to have_content('$13,669.60')
       end
       within("tr#item-#{@item4.id}") do
-        expect(page).to have_content("$11,900.00")
+        expect(page).to have_content('$11,900.00')
       end
       within("tr#item-#{@item13.id}") do
-        expect(page).to have_content("$9,000.00")
+        expect(page).to have_content('$9,000.00')
       end
       within("tr#item-#{@item15.id}") do
-        expect(page).to have_content("$7,560.00")
+        expect(page).to have_content('$7,560.00')
       end
     end
-
 
     it 'displays the top selling date for each item next to the item' do
       expected = @item1.created_at.to_date
@@ -197,7 +195,7 @@ RSpec.describe 'Merchants Item Index Page' do
     end
   end
 
-  describe "enabled and disabled sections" do
+  describe 'enabled and disabled sections' do
     it 'displays all of the enabled items' do
       merchant1 = Merchant.create!(name: 'Tom Holland')
       item1 = Item.create!(name: 'spider suit', description: 'saves lives', unit_price: 10_000, merchant_id: merchant1.id)
@@ -208,12 +206,12 @@ RSpec.describe 'Merchants Item Index Page' do
 
       visit merchant_items_path(merchant1.id)
 
-      within "#enabled" do
+      within '#enabled' do
         expect(page).to have_content(item1.name)
         expect(page).to have_content(item3.name)
         expect(page).to have_content(item5.name)
-        expect(page).to_not have_content(item2.name)
-        expect(page).to_not have_content(item4.name)
+        expect(page).not_to have_content(item2.name)
+        expect(page).not_to have_content(item4.name)
       end
     end
 
@@ -227,12 +225,12 @@ RSpec.describe 'Merchants Item Index Page' do
 
       visit merchant_items_path(merchant1.id)
 
-      within "#disabled" do
+      within '#disabled' do
         expect(page).to have_content(item2.name)
         expect(page).to have_content(item4.name)
-        expect(page).to_not have_content(item1.name)
-        expect(page).to_not have_content(item3.name)
-        expect(page).to_not have_content(item5.name)
+        expect(page).not_to have_content(item1.name)
+        expect(page).not_to have_content(item3.name)
+        expect(page).not_to have_content(item5.name)
       end
     end
   end
@@ -242,17 +240,17 @@ RSpec.describe 'Merchants Item Index Page' do
       within('#all-item-table') do
         expect(@item1.name).to appear_before(@item2.name)
         expect(@item2.name).to appear_before(@item3.name)
-        click_on "Sort Alphabetically"
+        click_on 'Sort Alphabetically'
       end
       within('#all-item-table') do
-        expect(current_path).to eq(merchant_items_path(@merchant1.id))
+        expect(page).to have_current_path(merchant_items_path(@merchant1.id), ignore_query: true)
         expect(@item3.name).to appear_before(@item2.name)
         expect(@item2.name).to appear_before(@item1.name)
         @item1.update(name: 'Dom Tolland')
-        click_on "Sort by Updated Date"
+        click_on 'Sort by Updated Date'
       end
       within('#all-item-table') do
-        expect(current_path).to eq(merchant_items_path(@merchant1.id))
+        expect(page).to have_current_path(merchant_items_path(@merchant1.id), ignore_query: true)
         expect(@item1.name).to appear_before(@item2.name)
       end
     end

@@ -3,7 +3,8 @@ class InvoiceItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { only_integer: true }
   validates :unit_price, presence: true, numericality: { only_integer: true }
-  validates :status, presence: true, inclusion: { in: InvoiceItem.statuses.keys }
+  validates :status, presence: true,
+                     inclusion: { in: InvoiceItem.statuses.keys }
 
   belongs_to :invoice
   belongs_to :item

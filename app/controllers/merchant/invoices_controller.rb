@@ -1,5 +1,4 @@
 class Merchant::InvoicesController < ApplicationController
-
   def index
     @invoices = Merchant.merchant_invoices(params[:merchant_id])
   end
@@ -25,7 +24,6 @@ class Merchant::InvoicesController < ApplicationController
     @invoice_item.update(status: params[:status])
     @invoice_item.save
     redirect_to merchant_invoice_path(@merchant.id, @invoice.id)
-    flash[:notice] = "Item status successfully updated!"
+    flash[:notice] = 'Item status successfully updated!'
   end
-
 end

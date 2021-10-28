@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Customer do
   describe 'associations' do
-    it {should have_many :invoices}
+    it { should have_many :invoices }
   end
 
   describe 'validations' do
@@ -12,7 +12,7 @@ RSpec.describe Customer do
   end
 
   describe 'class methods' do
-    before :each do
+    before do
       @merchant = Merchant.create!(name: 'Lydia Rodarte-Quayle')
       @item = Item.create!(name: 'P2P', description: 'secret...', unit_price: 1000, merchant_id: @merchant.id)
 
@@ -73,7 +73,6 @@ RSpec.describe Customer do
 
       @customer_6 = Customer.create!(first_name: 'Jack', last_name: 'Welker')
       @customer_7 = Customer.create!(first_name: 'Todd', last_name: 'Alquist')
-
     end
 
     it 'can return for a given merchant the 5 #top_customers_for_merchant' do
@@ -84,5 +83,4 @@ RSpec.describe Customer do
       )
     end
   end
-
 end

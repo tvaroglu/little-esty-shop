@@ -1,47 +1,47 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants Dashboard Page' do
-  before :each do
+  before do
     @merchant = Merchant.create!(name: 'Tom Holland')
 
     visit merchant_dashboard_index_path(@merchant.id)
   end
 
   it 'is on the correct page' do
-    expect(current_path).to eq(merchant_dashboard_index_path(@merchant.id))
+    expect(page).to have_current_path(merchant_dashboard_index_path(@merchant.id), ignore_query: true)
     expect(page).to have_content("Welcome #{@merchant.name}!")
-    expect(page).to have_content("Dashboard")
+    expect(page).to have_content('Dashboard')
   end
 
   it 'can take the user back to the merchants index' do
     click_link 'Return to Index'
 
-    expect(current_path).to eq(merchants_path)
+    expect(page).to have_current_path(merchants_path, ignore_query: true)
   end
 
   it 'can take the user to the merchant items index page' do
     click_link 'All Items'
 
-    expect(current_path).to eq(merchant_items_path(@merchant.id))
+    expect(page).to have_current_path(merchant_items_path(@merchant.id), ignore_query: true)
   end
 
   it 'can take the user to the merchant invoices index page' do
     click_link 'All Invoices'
 
-    expect(current_path).to eq(merchant_invoices_path(@merchant.id))
+    expect(page).to have_current_path(merchant_invoices_path(@merchant.id), ignore_query: true)
   end
 
   it 'can take the user to the merchant discounts index page' do
     mock_response = [
-      {"date"=>"2021-11-11", "name"=>"Veterans Day"},
-      {"date"=>"2021-10-11", "name"=>"Columbus Day"},
-      {"date"=>"2021-09-06", "name"=>"Labour Day"},
-      {"date"=>"2021-07-05", "name"=>"Independence Day"}
+      { 'date' => '2021-11-11', 'name' => 'Veterans Day' },
+      { 'date' => '2021-10-11', 'name' => 'Columbus Day' },
+      { 'date' => '2021-09-06', 'name' => 'Labour Day' },
+      { 'date' => '2021-07-05', 'name' => 'Independence Day' }
     ]
-    allow(API).to receive(:render_request).and_return(mock_response)
+    allow(ApiService).to receive(:render_request).and_return(mock_response)
     click_link 'All Discounts'
 
-    expect(current_path).to eq(merchant_discounts_path(@merchant.id))
+    expect(page).to have_current_path(merchant_discounts_path(@merchant.id), ignore_query: true)
   end
 
   # As a merchant,
@@ -117,55 +117,55 @@ RSpec.describe 'Merchants Dashboard Page' do
     visit "/merchants/#{@merchant.id}/dashboard"
     # save_and_open_page
 
-    within "#customer-table-headers" do
-      expect(page).to have_content("Rank")
-      expect(page).to have_content("Name")
-      expect(page).to have_content("Total Purchases")
+    within '#customer-table-headers' do
+      expect(page).to have_content('Rank')
+      expect(page).to have_content('Name')
+      expect(page).to have_content('Total Purchases')
     end
 
-    within "#top-customers" do
-      expect("#{expected[0].first_name}").to appear_before("#{expected[1].first_name}")
-      expect("#{expected[1].first_name}").to appear_before("#{expected[2].first_name}")
-      expect("#{expected[3].first_name}").to appear_before("#{expected[4].first_name}")
+    within '#top-customers' do
+      expect(expected[0].first_name.to_s).to appear_before(expected[1].first_name.to_s)
+      expect(expected[1].first_name.to_s).to appear_before(expected[2].first_name.to_s)
+      expect(expected[3].first_name.to_s).to appear_before(expected[4].first_name.to_s)
     end
 
     within "#customer-#{expected[0].id}" do
-      expect(page).to have_content("1")
-      expect(page).to have_content("#{expected[0].first_name}")
-      expect(page).to have_content("#{expected[0].last_name}")
-      expect(page).to have_content("#{expected[0].transaction_count}")
+      expect(page).to have_content('1')
+      expect(page).to have_content(expected[0].first_name.to_s)
+      expect(page).to have_content(expected[0].last_name.to_s)
+      expect(page).to have_content(expected[0].transaction_count.to_s)
     end
 
     within "#customer-#{expected[1].id}" do
-      expect(page).to have_content("2")
-      expect(page).to have_content("#{expected[1].first_name}")
-      expect(page).to have_content("#{expected[1].last_name}")
-      expect(page).to have_content("#{expected[1].transaction_count}")
+      expect(page).to have_content('2')
+      expect(page).to have_content(expected[1].first_name.to_s)
+      expect(page).to have_content(expected[1].last_name.to_s)
+      expect(page).to have_content(expected[1].transaction_count.to_s)
     end
 
     within "#customer-#{expected[2].id}" do
-      expect(page).to have_content("3")
-      expect(page).to have_content("#{expected[2].first_name}")
-      expect(page).to have_content("#{expected[2].last_name}")
-      expect(page).to have_content("#{expected[2].transaction_count}")
+      expect(page).to have_content('3')
+      expect(page).to have_content(expected[2].first_name.to_s)
+      expect(page).to have_content(expected[2].last_name.to_s)
+      expect(page).to have_content(expected[2].transaction_count.to_s)
     end
 
     within "#customer-#{expected[3].id}" do
-      expect(page).to have_content("4")
-      expect(page).to have_content("#{expected[3].first_name}")
-      expect(page).to have_content("#{expected[3].last_name}")
-      expect(page).to have_content("#{expected[3].transaction_count}")
+      expect(page).to have_content('4')
+      expect(page).to have_content(expected[3].first_name.to_s)
+      expect(page).to have_content(expected[3].last_name.to_s)
+      expect(page).to have_content(expected[3].transaction_count.to_s)
     end
 
     within "#customer-#{expected[4].id}" do
-      expect(page).to have_content("5")
-      expect(page).to have_content("#{expected[4].first_name}")
-      expect(page).to have_content("#{expected[4].last_name}")
-      expect(page).to have_content("#{expected[4].transaction_count}")
+      expect(page).to have_content('5')
+      expect(page).to have_content(expected[4].first_name.to_s)
+      expect(page).to have_content(expected[4].last_name.to_s)
+      expect(page).to have_content(expected[4].transaction_count.to_s)
     end
 
-    expect(page).to_not have_content("#{@customer_6.first_name}")
-    expect(page).to_not have_content("#{@customer_7.first_name}")
+    expect(page).not_to have_content(@customer_6.first_name.to_s)
+    expect(page).not_to have_content(@customer_7.first_name.to_s)
   end
 
   # As a merchant
@@ -212,37 +212,36 @@ RSpec.describe 'Merchants Dashboard Page' do
     visit "/merchants/#{@merchant.id}/dashboard"
     # save_and_open_page
 
-    expect(page).to have_content("Ordered Items Ready for Shipment")
-    expect("#{expected[0].invoice_id}").to appear_before("#{expected[1].invoice_id}")
-    expect("#{expected[1].invoice_id}").to appear_before("#{expected[2].invoice_id}")
+    expect(page).to have_content('Ordered Items Ready for Shipment')
+    expect(expected[0].invoice_id.to_s).to appear_before(expected[1].invoice_id.to_s)
+    expect(expected[1].invoice_id.to_s).to appear_before(expected[2].invoice_id.to_s)
 
-    within "#item-table-headers" do
-      expect(page).to have_content("Item")
-      expect(page).to have_content("Name")
-      expect(page).to have_content("Invoice")
-      expect(page).to have_content("Transaction Date")
+    within '#item-table-headers' do
+      expect(page).to have_content('Item')
+      expect(page).to have_content('Name')
+      expect(page).to have_content('Invoice')
+      expect(page).to have_content('Transaction Date')
     end
 
     within "#item-#{expected[0].id}_#{expected[0].invoice_id}" do
-      expect(page).to have_content("1")
-      expect(page).to have_content("#{expected[0].name}")
-      expect(page).to have_link("#{expected[0].invoice_id}")
-      expect(page).to have_content("#{expected[0].format_date(expected[0].invoiced_date)}")
+      expect(page).to have_content('1')
+      expect(page).to have_content(expected[0].name.to_s)
+      expect(page).to have_link(expected[0].invoice_id.to_s)
+      expect(page).to have_content(expected[0].format_date(expected[0].invoiced_date).to_s)
     end
 
     within "#item-#{expected[1].id}_#{expected[1].invoice_id}" do
-      expect(page).to have_content("2")
-      expect(page).to have_content("#{expected[1].name}")
-      expect(page).to have_link("#{expected[1].invoice_id}")
-      expect(page).to have_content("#{expected[1].format_date(expected[1].invoiced_date)}")
+      expect(page).to have_content('2')
+      expect(page).to have_content(expected[1].name.to_s)
+      expect(page).to have_link(expected[1].invoice_id.to_s)
+      expect(page).to have_content(expected[1].format_date(expected[1].invoiced_date).to_s)
     end
 
     within "#item-#{expected[2].id}_#{expected[2].invoice_id}" do
-      expect(page).to have_content("3")
-      expect(page).to have_content("#{expected[2].name}")
-      expect(page).to have_link("#{expected[2].invoice_id}")
-      expect(page).to have_content("#{expected[2].format_date(expected[1].invoiced_date)}")
+      expect(page).to have_content('3')
+      expect(page).to have_content(expected[2].name.to_s)
+      expect(page).to have_link(expected[2].invoice_id.to_s)
+      expect(page).to have_content(expected[2].format_date(expected[1].invoiced_date).to_s)
     end
   end
-
 end
