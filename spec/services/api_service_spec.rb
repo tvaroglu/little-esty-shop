@@ -31,10 +31,10 @@ RSpec.describe ApiService do
         'https://api.github.com/repos/bfl3tch/little-esty-shop/pulls?state=closed'
       )
       expect(expected[:defaults][:commits]).to eq(
-        { 'tvaroglu' => 57, 'AbbottMichael' => 28, 'ElliotOlbright' => 49, 'bfl3tch' => 40 }
+        { 'tvaroglu' => 67, 'AbbottMichael' => 39, 'ElliotOlbright' => 65, 'bfl3tch' => 100 }
       )
       expect(expected[:defaults][:pulls]).to eq(
-        { 'tvaroglu' => 8, 'AbbottMichael' => 6, 'ElliotOlbright' => 10, 'bfl3tch' => 7 }
+        { 'tvaroglu' => 8, 'AbbottMichael' => 5, 'ElliotOlbright' => 6, 'bfl3tch' => 13 }
       )
     end
 
